@@ -1,0 +1,161 @@
+﻿<Controls:MetroWindow
+                        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                        xmlns:local="clr-namespace:MATRIX.Wpf"
+                        xmlns:Properties="clr-namespace:Matrix.Wpf.Properties"   x:Class="Matrix.Wpf.MainWindow"
+                        mc:Ignorable="d"
+                        Title="Matrix for Prepar3D v4" Height="630" Width="990"
+                        
+                        BorderBrush="{DynamicResource AccentColorBrush}"
+                        BorderThickness="1"
+                        ResizeMode="CanMinimize"
+                        WindowTransitionsEnabled="False"
+                        WindowStartupLocation="CenterScreen" Loaded="MetroWindow_Loaded" Closed="MetroWindow_Closed">
+
+
+    <Controls:MetroWindow.RightWindowCommands>
+        <Controls:WindowCommands>
+            <Button x:Name="btnUserManual" Content="User Manual" Click="btnUserManual_Click"/>
+            <Button x:Name="btnSupport" Content="Support" Click="btnSupport_Click"/>
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.RightWindowCommands>
+
+    <Grid Background="Black">
+
+        <Rectangle Margin="10,10,0,10" Stroke="{DynamicResource AccentColorBrush}" StrokeThickness="2" HorizontalAlignment="Left" Width="170"/>
+        <Image HorizontalAlignment="Left" Height="50" Margin="30,25,0,0" VerticalAlignment="Top" Width="128" Source="Images/maiw_logo.png"/>
+        <ListBox x:Name="lstMenu" HorizontalAlignment="Left" Height="300" Margin="15,90,0,0" VerticalAlignment="Top" Width="160" HorizontalContentAlignment="Center" SelectedIndex="0" Background="{x:Null}" SelectionChanged="lstMenu_SelectionChanged">
+            <ListBoxItem Content="HOME" Padding="0,10"/>
+            <ListBoxItem Content="GLOBAL" Padding="0,10"/>
+            <ListBoxItem Content="REGIONS" Padding="0,10"/>
+            <ListBoxItem Content="CREDITS" Padding="0,10"/>
+            <ListBoxItem Content="SETTINGS" Padding="0,10"/>
+        </ListBox>
+        <Button x:Name="btnDonate" Content="Donate" HorizontalAlignment="Left" Margin="30,499,0,0" VerticalAlignment="Top" Width="128" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="btnDonate_Click"/>
+        <Label Content="Version 1.0.0.0" Margin="15,0,0,40" FontSize="11" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="160" HorizontalContentAlignment="Center"/>
+        <Label Content="© 2018 Military AI Works" Margin="15,0,0,15" FontSize="11" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="160" HorizontalContentAlignment="Center"/>
+
+
+        <TabControl x:Name="tclMainWindow" Margin="190,5,10,10" Background="{x:Null}" BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" ClipToBounds="True" SelectedIndex="0">
+            <TabItem x:Name="tabHome">
+                <Grid>
+                    <Label Content="MILITARY AI TRAFFIC INSTALLER XTREME (MATRIX)" Margin="10,0,-29,0" VerticalAlignment="Top" Height="60" FontSize="30" />
+                    <TextBlock Margin="10,65,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="60" Padding="5"><Run Text="Welcome to M"/><Run Text="atrix"/><Run Text=", the automatic military AI traffic installer from Military AI Works. M"/><Run Text="atrix"/><Run Text=" is designed to work with Prepar3D v4 and wil not work with FS2004 nor FSX. To get started, first install the &quot;Global Libraries&quot; on the &quot;Global&quot; tab. Then proceed to the &quot;Regions&quot; tab and install traffic for any region you want. Enjoy!"/></TextBlock>
+                    <Label Content="Latest News" HorizontalAlignment="Left" Margin="10,130,0,0" VerticalAlignment="Top" Height="35" Width="754" FontSize="20"/>
+                    <WebBrowser x:Name="webLatestNews" HorizontalAlignment="Left" Height="300" Margin="10,170,0,0" VerticalAlignment="Top" Width="754" Visibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+                    <TextBlock x:Name="txbNoConnection" HorizontalAlignment="Left" Margin="10,170,0,0" Padding="5" TextWrapping="Wrap" Text="Could not connect to the MAIW server..." VerticalAlignment="Top" Height="50" Width="754" Visibility="Collapsed"/>
+                    <Image HorizontalAlignment="Left" Height="86" Margin="10,475,0,0" VerticalAlignment="Top" Width="86" Stretch="Fill" Source="Images/arrow.png"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="101,495,0,0" Padding="5" TextWrapping="Wrap" VerticalAlignment="Top" Height="33" Width="663"><Run Text="Do you like our app? Please consider making a small donation. We work for free, but our servers don't..."/></TextBlock>
+                    <TextBlock HorizontalAlignment="Left" Margin="101,538,0,0" Padding="5" TextWrapping="Wrap" VerticalAlignment="Top" Height="33" Width="663"><Run Text="Visit us at militaryaiworks.com | Follow us at facebook.com/militaryaiworks"/></TextBlock>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="tabGlobal">
+                <Grid>
+                    <Label Content="GLOBAL PACKAGES" Margin="10,0,-29,0" VerticalAlignment="Top" Height="60" FontSize="30" />
+                    <TextBlock Margin="10,65,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="60" Padding="5"><Run Text="The Global Libraries do not contain any traffic, but elements that are needed by all regions such as effects, common textures and shared object libraries. Installing the Global Libraries is required before you can install any regions. The Global Voicepack is optional and requires EditVoicepack XL."/></TextBlock>
+                    <GroupBox Header="Global Libraries" HorizontalAlignment="Left" Height="200" Margin="10,140,0,0" VerticalAlignment="Top" Width="240">
+                        <Grid>
+                            <Image HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Margin="65,10" Source="Images/global.png"/>
+                            <Button x:Name="btnInstallGlobalLibraries" Content="Install" HorizontalAlignment="Left" Margin="10,125,0,0" VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="btnInstallGlobalLibraries_Click"/>
+                            <Controls:Badged x:Name="bdgGlobalLibraries" Badge="0" Margin="118,125,10,0">
+                                <Button x:Name="btnUpdateGlobalLibraries" Content="Update" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="btnUpdateGlobalLibraries_Click" IsEnabled="False"/>
+                            </Controls:Badged>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Header="Global Voicepack" HorizontalAlignment="Left" Height="200" Margin="266,140,0,0" VerticalAlignment="Top" Width="240">
+                        <Grid>
+                            <Image HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Margin="65,10" Source="Images/voicepack.png"/>
+                            <Button x:Name="btnDownloadGlobalVoicepack" Content="Download" HorizontalAlignment="Left" Margin="70,125,0,0" VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="btnDownloadGlobalVoicepack_Click"/>
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="tabRegions">
+                <Grid>
+                    <Label Content="REGIONAL PACKAGES" Margin="10,0,-29,0" VerticalAlignment="Top" Height="60" FontSize="30" />
+                    <TextBlock Margin="10,65,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="60" Padding="5"><Run Text="Welcome to the regional MAIW packages page. Here you can install traffic for any region you want, consisting of aircraft models, repaints, flightplans and airbase scenery. "/><Run Text="Click on "/><Run Text="a region's "/><Run Text="image to learn more about the"/><Run Text=" included units"/><Run Text=" and airfields for that region"/><Run Text=". "/><Run Text="T"/><Run Text="he Global Libraries "/><Run Text="are required"/><Run Text="."/></TextBlock>
+                    <GroupBox Header="Africa" HorizontalAlignment="Left" Height="200" Margin="10,140,0,0" VerticalAlignment="Top" Width="240">
+                        <Grid>
+                            <Image x:Name="imgRegionAfrica" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Margin="65,10" Source="Images/africa.png" Focusable="True" ToolTip="More info" Cursor="Hand" MouseUp="imgRegionAfrica_MouseUp"/>
+                            <Button x:Name="btnInstallRegionAfrica" Content="Install" HorizontalAlignment="Left" Margin="10,125,0,0" VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="btnInstallRegionAfrica_Click"/>
+                            <Controls:Badged x:Name="bdgRegionAfrica" Badge="0" Margin="118,125,10,0">
+                                <Button x:Name="btnUpdateRegionAfrica" Content="Update" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="btnUpdateRegionAfrica_Click" IsEnabled="False"/>
+                            </Controls:Badged>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Header="Asia" HorizontalAlignment="Left" Height="200" Margin="265,140,0,0" VerticalAlignment="Top" Width="240">
+                        <Grid>
+                            <Image x:Name="imgRegionAsia" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Margin="65,10" Source="Images/asia.png"/>
+                            <Button x:Name="btnInstallRegionAsia" Content="Install" HorizontalAlignment="Left" Margin="10,125,0,0" VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="btnInstallRegionAsia_Click"/>
+                            <Controls:Badged x:Name="bdgRegionAsia" Badge="0" Margin="118,125,10,0">
+                                <Button x:Name="btnUpdateRegionAsia" Content="Update" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="btnUpdateRegionAsia_Click" IsEnabled="False"/>
+                            </Controls:Badged>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Header="Europe" HorizontalAlignment="Left" Height="200" Margin="520,140,0,0" VerticalAlignment="Top" Width="240">
+                        <Grid>
+                            <Image x:Name="imgRegionEurope" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Margin="65,10" Source="Images/europe.png"/>
+                            <Button x:Name="btnInstallRegionEurope" Content="Install" HorizontalAlignment="Left" Margin="10,125,0,0" VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="btnInstallRegionEurope_Click"/>
+                            <Controls:Badged x:Name="bdgRegionEurope" Badge="0" Margin="118,125,10,0">
+                                <Button x:Name="btnUpdateRegionEurope" Content="Update" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="btnUpdateRegionEurope_Click" IsEnabled="False"/>
+                            </Controls:Badged>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Header="North America" HorizontalAlignment="Left" Height="200" Margin="10,361,0,0" VerticalAlignment="Top" Width="240">
+                        <Grid>
+                            <Image x:Name="imgRegionNA" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Margin="65,10" Source="Images/northamerica.png"/>
+                            <Button x:Name="btnInstallRegionNA" Content="Install" HorizontalAlignment="Left" Margin="10,125,0,0" VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="btnInstallRegionNA_Click"/>
+                            <Controls:Badged x:Name="bdgRegionNA" Badge="0" Margin="118,125,10,0">
+                                <Button x:Name="btnUpdateRegionNA" Content="Update" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="btnUpdateRegionNA_Click" IsEnabled="False"/>
+                            </Controls:Badged>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Header="Oceania" HorizontalAlignment="Left" Height="200" Margin="265,361,0,0" VerticalAlignment="Top" Width="240">
+                        <Grid>
+                            <Image x:Name="imgRegionOceania" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Margin="65,10" Source="Images/oceania.png" ToolTip="More info" Focusable="True" MouseUp="imgRegionOceania_MouseUp" Cursor="Hand"/>
+                            <Button x:Name="btnInstallRegionOceania" Content="Install" HorizontalAlignment="Left" Margin="10,125,0,0" VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="btnInstallRegionOceania_Click"/>
+                            <Controls:Badged x:Name="bdgRegionOceania" Badge="0" Margin="118,125,10,0">
+                                <Button x:Name="btnUpdateRegionOceania" Content="Update" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="btnUpdateRegionOceania_Click" IsEnabled="False"/>
+                            </Controls:Badged>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Header="South America" HorizontalAlignment="Left" Height="200" Margin="520,361,0,0" VerticalAlignment="Top" Width="240">
+                        <Grid>
+                            <Image x:Name="imgRegionSA" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Margin="65,10" Source="Images/southamerica.png" PreviewMouseUp="imgRegionSA_PreviewMouseUp" Focusable="True" ToolTip="More info" Cursor="Hand"/>
+                            <Button x:Name="btnInstallRegionSA" Content="Install" HorizontalAlignment="Left" Margin="10,125,0,0" VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="btnInstallRegionSA_Click"/>
+                            <Controls:Badged x:Name="bdgRegionSA" Badge="0" Margin="118,125,10,0">
+                                <Button x:Name="btnUpdateRegionSA" Content="Update" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="btnUpdateRegionSA_Click" IsEnabled="False"/>
+                            </Controls:Badged>
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="tabCredits">
+                <Grid>
+                    <Label Content="CREDITS" Margin="10,0,-29,0" VerticalAlignment="Top" Height="60" FontSize="30" />
+                    <TextBlock Margin="10,65,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="60" Padding="5" Text="All this wouldn't be possible without the hard work of many individuals, devoting their free time to our hobby. The following contributors have all given something to our packages."/>
+                    <WebBrowser x:Name="webCredits" HorizontalAlignment="Left" Height="436" Margin="10,125,0,0" VerticalAlignment="Top" Width="754" Visibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+                    <TextBlock x:Name="txbNoCredits" HorizontalAlignment="Left" Margin="10,130,0,0" Padding="5" TextWrapping="Wrap" Text="Could not connect to the MAIW server..." VerticalAlignment="Top" Height="50" Width="754" Visibility="Collapsed"/>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="tabSettings">
+                <Grid>
+                    <Label Content="SETTINGS" Margin="10,0,-29,0" VerticalAlignment="Top" Height="60" FontSize="30" />
+                    <GroupBox Header="Installation" HorizontalAlignment="Left" Height="150" Margin="10,65,0,0" VerticalAlignment="Top" Width="754">
+                        <Grid>
+                            <Label Content="Installation Folder" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+                            <TextBox x:Name="txtInstallationFolder" HorizontalAlignment="Left" Height="23" Margin="140,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="592" IsReadOnly="True" IsEnabled="False"/>
+                            <Label Content="Disable add-on.xml" HorizontalAlignment="Left" Margin="10,54,0,0" VerticalAlignment="Top"/>
+                            <Controls:ToggleSwitch x:Name="tglManual" Margin="140,51,502,19" FontSize="12" Checked="tglManual_Checked" Unchecked="tglManual_Unchecked" ToolTip="Only check this if you know what you're doing!"/>
+                            <Label Content="Warning: packages installed with this option enabled will not be registered with P3D!" HorizontalAlignment="Left" Margin="264,56,0,0" VerticalAlignment="Top" Width="468" FontSize="10"/>
+                        </Grid>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+
+</Controls:MetroWindow>
