@@ -124,7 +124,7 @@
                     </GroupBox>
                     <GroupBox Header="South America" HorizontalAlignment="Left" Height="200" Margin="520,361,0,0" VerticalAlignment="Top" Width="240">
                         <Grid>
-                            <Image x:Name="imgRegionSA" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Margin="65,10" Source="Images/southamerica.png" PreviewMouseUp="imgRegionSA_PreviewMouseUp" Focusable="True" ToolTip="More info" Cursor="Hand"/>
+                            <Image x:Name="imgRegionSA" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Margin="65,10" Source="Images/southamerica.png" Focusable="True" ToolTip="More info" Cursor="Hand" MouseUp="imgRegionSA_MouseUp"/>
                             <Button x:Name="btnInstallRegionSA" Content="Install" HorizontalAlignment="Left" Margin="10,125,0,0" VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="btnInstallRegionSA_Click"/>
                             <Controls:Badged x:Name="bdgRegionSA" Badge="0" Margin="118,125,10,0">
                                 <Button x:Name="btnUpdateRegionSA" Content="Update" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="btnUpdateRegionSA_Click" IsEnabled="False"/>

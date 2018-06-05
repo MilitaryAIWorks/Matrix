@@ -608,7 +608,7 @@ namespace Matrix.Wpf
         private void btnSupport_Click(object sender, RoutedEventArgs e)
         {
             //Open support forum in a browser window.
-            string url = @"https://militaryaiworks.com/forums";
+            string url = @"https://militaryaiworks.com/forums/83";
             Process.Start(url);
         }
 
@@ -858,9 +858,9 @@ namespace Matrix.Wpf
             Process.Start(url);
         }
 
-        private void imgRegionSA_PreviewMouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void imgRegionSA_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            string url = $"{serverPath}/matrix/docs/MAIW-RegionSA.pdf";
+            string url = $"{serverPath}/docs/MAIW-RegionSA.pdf";
             Process.Start(url);
         }
     }
