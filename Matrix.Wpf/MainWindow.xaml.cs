@@ -269,7 +269,7 @@ namespace Matrix.Wpf
                 {
                     if (Directory.Exists(dlg.SelectedPath))
                     {
-                        installPath = dlg.SelectedPath + "\\Military AI Works\\";
+                        installPath = Path.Combine(dlg.SelectedPath , "Military AI Works\\");
                         txtInstallationFolder.Text = installPath;
                     }
                     else
