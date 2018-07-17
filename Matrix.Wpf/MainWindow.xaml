@@ -147,10 +147,29 @@
                     <GroupBox Header="Installation" HorizontalAlignment="Left" Height="150" Margin="10,65,0,0" VerticalAlignment="Top" Width="754">
                         <Grid>
                             <Label Content="Installation Folder" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-                            <TextBox x:Name="txtInstallationFolder" HorizontalAlignment="Left" Height="23" Margin="140,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="592" IsReadOnly="True" IsEnabled="False"/>
+                            <TextBox x:Name="txtInstallationFolder" HorizontalAlignment="Left" Height="23" Margin="140,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="512" IsReadOnly="True" IsEnabled="False"/>
+                            <Button x:Name="btnChangeInstallPath" Content="Select" HorizontalAlignment="Left" Margin="657,10,0,0" VerticalAlignment="Top" Width="75" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Height="26" Click="btnChangeInstallPath_Click"/>
                             <Label Content="Disable add-on.xml" HorizontalAlignment="Left" Margin="10,54,0,0" VerticalAlignment="Top"/>
                             <Controls:ToggleSwitch x:Name="tglManual" Margin="140,51,502,19" FontSize="12" Checked="tglManual_Checked" Unchecked="tglManual_Unchecked" ToolTip="Only check this if you know what you're doing!"/>
-                            <Label Content="Warning: packages installed with this option enabled will not be registered with P3D!" HorizontalAlignment="Left" Margin="264,56,0,0" VerticalAlignment="Top" Width="468" FontSize="10"/>
+                            <Label Content="Warning: packages installed with this option enabled will not be registered with P3D!" HorizontalAlignment="Left" Margin="247,56,0,0" VerticalAlignment="Top" Width="485" FontSize="10"/>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Header="Airfield status" HorizontalAlignment="Left" Height="328" Margin="10,233,0,0" VerticalAlignment="Top" Width="754">
+                        <Grid>
+                            <ComboBox x:Name="cmbRegionPicker" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="200" Controls:TextBoxHelper.Watermark="Select a region..." DisplayMemberPath="Name" SelectionChanged="cmbRegionPicker_SelectionChanged"/>
+                            <ListBox x:Name="lstAirfieldPicker" HorizontalAlignment="Left" Height="182" Margin="10,55,0,0" VerticalAlignment="Top" Width="200"/>
+                            <Button x:Name="btnAirfieldStatus" Content="Enable / Disable" HorizontalAlignment="Left" Margin="10,255,0,0" VerticalAlignment="Top" Width="200" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="btnAirfieldStatus_Click"/>
+                            <Image HorizontalAlignment="Left" Height="100" Margin="226,194,0,-1" VerticalAlignment="Top" Width="100" Source="Images/arrow.png" Stretch="Fill" RenderTransformOrigin="0.5,0.5">
+                                <Image.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform ScaleY="-1" ScaleX="1"/>
+                                        <SkewTransform AngleY="0" AngleX="0"/>
+                                        <RotateTransform Angle="0"/>
+                                        <TranslateTransform/>
+                                    </TransformGroup>
+                                </Image.RenderTransform>
+                            </Image>
+                            <TextBlock HorizontalAlignment="Left" Margin="336,205,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="59" Width="398"><Run Text="1. Choose a region from the dropdown menu to see all installed airfields.&#x0a;2. Select an airfield in the list.&#x0a;3. Click this button to disable the airfield. Click again to enable."/></TextBlock>
                         </Grid>
                     </GroupBox>
                 </Grid>

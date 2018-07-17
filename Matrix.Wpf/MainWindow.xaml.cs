@@ -23,6 +23,9 @@ namespace Matrix.Wpf
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
+
+        #region MAINWINDOW
+
         public MainWindow()
         {
             InitializeComponent();
@@ -33,9 +36,10 @@ namespace Matrix.Wpf
             AutoUpdater.Start("https://militaryaiworks.com/matrix/app/latestVersion.xml");
         }
 
+        #endregion
 
-        //FIELDS
 
+        #region FIELDS
 
         string tempPath = Path.GetTempPath();
         string serverPath = Properties.Settings.Default.ServerPath;
@@ -49,14 +53,16 @@ namespace Matrix.Wpf
         ProgressDialogController progress;
         MessageDialogResult messageResult;
         MessageDialogResult licenseResult;
+        string sceneryPath;
+        string[] airfields;
         Logger logger = LogManager.GetCurrentClassLogger();
 
+        #endregion
 
 
-        //METHODS
+        #region METHODS
 
-
-        //Html
+        #region Html
 
         void GetLatestNews()
         {
@@ -124,8 +130,9 @@ namespace Matrix.Wpf
             }
         }
 
+        #endregion
 
-        //User settings
+        #region User Settings
 
         void GetUserSettings()
         {
@@ -184,8 +191,9 @@ namespace Matrix.Wpf
             Properties.Settings.Default.Save();
         }
 
+        #endregion
 
-        //Button states
+        #region Initial States
 
         void MarkAsInstalled(Button b)
         {
@@ -214,14 +222,26 @@ namespace Matrix.Wpf
 
         void SetInitialStates()
         {
-            //Set install buttons
+            //Set install buttons and add regions to cmbRegionPicker
             if (packages[0].IsInstalled) MarkAsInstalled(btnInstallGlobalLibraries);
-            if (packages[2].IsInstalled) MarkAsInstalled(btnInstallRegionAfrica);
+            if (packages[2].IsInstalled)
+            {
+                MarkAsInstalled(btnInstallRegionAfrica);
+                cmbRegionPicker.Items.Add(packages[2]);
+            }
             btnInstallRegionAsia.IsEnabled = false; //if (packages[3].IsInstalled) MarkAsInstalled(btnInstallRegionAsia);
             btnInstallRegionEurope.IsEnabled = false; //if (packages[4].IsInstalled) MarkAsInstalled(btnInstallRegionEurope);
             btnInstallRegionNA.IsEnabled = false; //if (packages[5].IsInstalled) MarkAsInstalled(btnInstallRegionNA);
-            if (packages[6].IsInstalled) MarkAsInstalled(btnInstallRegionOceania);
-            if (packages[7].IsInstalled) MarkAsInstalled(btnInstallRegionSA);
+            if (packages[6].IsInstalled)
+            {
+                MarkAsInstalled(btnInstallRegionOceania);
+                cmbRegionPicker.Items.Add(packages[6]);
+            }
+            if (packages[7].IsInstalled)
+            {
+                MarkAsInstalled(btnInstallRegionSA);
+                cmbRegionPicker.Items.Add(packages[7]);
+            }
 
             //Set update buttons
             if (packages[0].IsInstalled && packages[0].Updates.Count != 0) MarkAsUpdatesAvailable(btnUpdateGlobalLibraries, bdgGlobalLibraries, packages[0]); else MarkAsNoUpdatesAvailable(btnUpdateGlobalLibraries, bdgGlobalLibraries);
@@ -239,8 +259,9 @@ namespace Matrix.Wpf
             txtInstallationFolder.Text = installPath;
         }
 
-      
-        //Messages
+        #endregion
+
+        #region Messages
 
         private async Task ShowMessageMissingLibs()
         {
@@ -252,17 +273,16 @@ namespace Matrix.Wpf
             licenseResult = await this.ShowMessageAsync("License", $"Installing the {packageName} package implies that you accept the MAIW license, available at https://militaryaiworks.com/license.", MessageDialogStyle.AffirmativeAndNegative);
         }
 
+        #endregion
 
-        //Download
+        #region Installation Path
 
-        private async Task CheckInstallPath()
+        private async Task ChangeInstallPath()
         {
-            if (string.IsNullOrEmpty(installPath))
-            {
-                await this.ShowMessageAsync("Settings", "Please select where you want to install your military AI traffic.\nYou only need to do this once.");
+                await this.ShowMessageAsync("Settings", "Please select where you want Matrix to install your military AI traffic.");
 
                 WinForms.FolderBrowserDialog dlg = new WinForms.FolderBrowserDialog();
-                dlg.Description = "Please select the folder where you want to install your military AI traffic from MAIW.";
+                dlg.Description = "Please select the folder where you want Matrix to install your military AI traffic.";
 
                 WinForms.DialogResult result = dlg.ShowDialog();
                 if (result == WinForms.DialogResult.OK)
@@ -277,8 +297,11 @@ namespace Matrix.Wpf
                         await this.ShowMessageAsync("Error", "There was a problem with the selected folder, or access to the folder was denied.");
                     }
                 }
-            }
         }
+
+        #endregion
+
+        #region Download
 
         private async Task DownloadVoicepack(string fileName, string location)
         {
@@ -325,8 +348,9 @@ namespace Matrix.Wpf
             }
         }
 
+        #endregion
 
-        // Unzip
+        #region Unzip
 
         private async Task UnzipFile(string fileName)
         {
@@ -357,15 +381,16 @@ namespace Matrix.Wpf
             }
         }
 
+        #endregion
 
-        // Button Clicks
+        #region Button Clicks
 
         private async Task ClickInstallButton(Package p, Button b)
         {
             if (p.IsInstalled == false) //Package is not yet installed
             {
                 //check install path
-                await CheckInstallPath();
+                if (string.IsNullOrEmpty(installPath)) await ChangeInstallPath();
                 if (string.IsNullOrEmpty(installPath)) return;
 
                 //Show async license message
@@ -574,10 +599,32 @@ namespace Matrix.Wpf
             await this.ShowMessageAsync("Success!", $"{p.Name} is updated.");            
         }
 
+        #endregion
+
+        #region Airfield Status
+        
+        private void GenerateAirfieldList ()
+        {
+            lstAirfieldPicker.Items.Clear();
+            
+            airfields = Directory.GetFiles(sceneryPath);
+
+            foreach (string airfield in airfields)
+            {
+                string icaoCode = (Path.GetFileName(airfield)).Substring(0, 4);
+
+                if (Path.GetExtension(airfield) == ".off") icaoCode += " (Disabled)";
+
+                if (!lstAirfieldPicker.Items.Contains(icaoCode)) lstAirfieldPicker.Items.Add(icaoCode);
+            }
+        }
+
+        #endregion
+
+        #endregion
 
 
-        //EVENTS
-
+        #region EVENTS
 
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
@@ -831,21 +878,6 @@ namespace Matrix.Wpf
             await ClickUpdateButton(packages[7], btnUpdateRegionSA, bdgRegionSA);
         }
 
-        private void tglManual_Checked(object sender, RoutedEventArgs e)
-        {
-            manual = true;
-        }
-
-        private void tglManual_Unchecked(object sender, RoutedEventArgs e)
-        {
-            manual = false;
-        }
-
-        private void MetroWindow_Closed(object sender, EventArgs e)
-        {
-            SaveUserSettings();
-        }
-
         private void imgRegionAfrica_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             string url = $"{serverPath}/docs/MAIW-RegionAfrica.pdf";
@@ -863,5 +895,77 @@ namespace Matrix.Wpf
             string url = $"{serverPath}/docs/MAIW-RegionSA.pdf";
             Process.Start(url);
         }
+
+        private async void btnChangeInstallPath_Click(object sender, RoutedEventArgs e)
+        {
+            //Check if any regions are installed
+            bool regionsInstalled = false;
+            for (int i = 2; i < packages.Count; i++)
+            {
+                if (packages[i].IsInstalled) regionsInstalled = true;
+            }
+
+            if (regionsInstalled || packages[0].IsInstalled)
+            {
+                await this.ShowMessageAsync("Error", "The installation path is locked.\nPlease uninstall all regions and global libraries first.");
+                return;
+            }
+            else await ChangeInstallPath();
+        }
+
+        private void tglManual_Checked(object sender, RoutedEventArgs e)
+        {
+            manual = true;
+        }
+
+        private void tglManual_Unchecked(object sender, RoutedEventArgs e)
+        {
+            manual = false;
+        }
+
+        private async void cmbRegionPicker_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Package selectedRegion = (Package)cmbRegionPicker.SelectedItem;
+
+            try
+            {
+                sceneryPath = Path.Combine(installPath, selectedRegion.FolderName, selectedRegion.FolderName) + "_AIRBASES\\Scenery";
+
+                GenerateAirfieldList();
+                if (lstAirfieldPicker.Items.Count > 0) lstAirfieldPicker.ScrollIntoView(lstAirfieldPicker.Items[0]);
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex, "Airfield Status Settings Error");
+                await this.ShowMessageAsync("Error", "Matrix can not find the airbase scenery folder for the selected region.");
+            }
+        }
+
+        private void btnAirfieldStatus_Click(object sender, RoutedEventArgs e)
+        {
+            if (lstAirfieldPicker.SelectedItem != null)
+            {
+                var selectedIndex = lstAirfieldPicker.SelectedIndex;
+                string selectedIcaoCode = (lstAirfieldPicker.SelectedItem.ToString()).Substring(0, 4);
+
+                foreach (string airfield in airfields)
+                {
+                    if (Path.GetFileName(airfield).Substring(0, 4) == selectedIcaoCode)
+                    {
+                        if (Path.GetExtension(airfield) == ".bgl") File.Move(airfield, Path.ChangeExtension(airfield, ".off")); else File.Move(airfield, Path.ChangeExtension(airfield, ".bgl"));
+                    }
+                }
+
+                GenerateAirfieldList();
+                lstAirfieldPicker.SelectedIndex = selectedIndex;
+            }
+        }
+        
+        private void MetroWindow_Closed(object sender, EventArgs e)
+        {
+            SaveUserSettings();
+        }
+
+        #endregion
     }
 }
