@@ -223,20 +223,31 @@ namespace Matrix.Wpf
         void SetInitialStates()
         {
             //Set install buttons and add regions to cmbRegionPicker
+
             if (packages[0].IsInstalled) MarkAsInstalled(btnInstallGlobalLibraries);
+
             if (packages[2].IsInstalled)
             {
                 MarkAsInstalled(btnInstallRegionAfrica);
                 cmbRegionPicker.Items.Add(packages[2]);
             }
-            btnInstallRegionAsia.IsEnabled = false; //if (packages[3].IsInstalled) MarkAsInstalled(btnInstallRegionAsia);
+
+            if (packages[3].IsInstalled)
+            {
+                MarkAsInstalled(btnInstallRegionAsia);
+                cmbRegionPicker.Items.Add(packages[3]);
+            }
+
             btnInstallRegionEurope.IsEnabled = false; //if (packages[4].IsInstalled) MarkAsInstalled(btnInstallRegionEurope);
+
             btnInstallRegionNA.IsEnabled = false; //if (packages[5].IsInstalled) MarkAsInstalled(btnInstallRegionNA);
+
             if (packages[6].IsInstalled)
             {
                 MarkAsInstalled(btnInstallRegionOceania);
                 cmbRegionPicker.Items.Add(packages[6]);
             }
+
             if (packages[7].IsInstalled)
             {
                 MarkAsInstalled(btnInstallRegionSA);
@@ -881,6 +892,24 @@ namespace Matrix.Wpf
         private void imgRegionAfrica_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             string url = $"{serverPath}/docs/MAIW-RegionAfrica.pdf";
+            Process.Start(url);
+        }
+
+        private void imgRegionAsia_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            string url = $"{serverPath}/docs/MAIW-RegionAsia.pdf";
+            Process.Start(url);
+        }
+
+        private void imgRegionEurope_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            string url = $"{serverPath}/docs/MAIW-RegionEurope.pdf";
+            Process.Start(url);
+        }
+
+        private void imgRegionNA_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            string url = $"{serverPath}/docs/MAIW-RegionNA.pdf";
             Process.Start(url);
         }
 

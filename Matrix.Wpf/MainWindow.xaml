@@ -88,7 +88,7 @@
                     </GroupBox>
                     <GroupBox Header="Asia" HorizontalAlignment="Left" Height="200" Margin="265,140,0,0" VerticalAlignment="Top" Width="240">
                         <Grid>
-                            <Image x:Name="imgRegionAsia" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Margin="65,10" Source="Images/asia.png"/>
+                            <Image x:Name="imgRegionAsia" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Margin="65,10" Source="Images/asia.png" MouseUp="imgRegionAsia_MouseUp"/>
                             <Button x:Name="btnInstallRegionAsia" Content="Install" HorizontalAlignment="Left" Margin="10,125,0,0" VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="btnInstallRegionAsia_Click"/>
                             <Controls:Badged x:Name="bdgRegionAsia" Badge="0" Margin="118,125,10,0">
                                 <Button x:Name="btnUpdateRegionAsia" Content="Update" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="btnUpdateRegionAsia_Click" IsEnabled="False"/>
@@ -97,7 +97,7 @@
                     </GroupBox>
                     <GroupBox Header="Europe" HorizontalAlignment="Left" Height="200" Margin="520,140,0,0" VerticalAlignment="Top" Width="240">
                         <Grid>
-                            <Image x:Name="imgRegionEurope" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Margin="65,10" Source="Images/europe.png"/>
+                            <Image x:Name="imgRegionEurope" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Margin="65,10" Source="Images/europe.png" MouseUp="imgRegionEurope_MouseUp"/>
                             <Button x:Name="btnInstallRegionEurope" Content="Install" HorizontalAlignment="Left" Margin="10,125,0,0" VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="btnInstallRegionEurope_Click"/>
                             <Controls:Badged x:Name="bdgRegionEurope" Badge="0" Margin="118,125,10,0">
                                 <Button x:Name="btnUpdateRegionEurope" Content="Update" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="btnUpdateRegionEurope_Click" IsEnabled="False"/>
@@ -106,7 +106,7 @@
                     </GroupBox>
                     <GroupBox Header="North America" HorizontalAlignment="Left" Height="200" Margin="10,361,0,0" VerticalAlignment="Top" Width="240">
                         <Grid>
-                            <Image x:Name="imgRegionNA" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Margin="65,10" Source="Images/northamerica.png"/>
+                            <Image x:Name="imgRegionNA" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Margin="65,10" Source="Images/northamerica.png" MouseUp="imgRegionNA_MouseUp"/>
                             <Button x:Name="btnInstallRegionNA" Content="Install" HorizontalAlignment="Left" Margin="10,125,0,0" VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="btnInstallRegionNA_Click"/>
                             <Controls:Badged x:Name="bdgRegionNA" Badge="0" Margin="118,125,10,0">
                                 <Button x:Name="btnUpdateRegionNA" Content="Update" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="btnUpdateRegionNA_Click" IsEnabled="False"/>
