@@ -25,7 +25,7 @@ namespace Matrix.Wpf.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("https://militaryaiworks.com/matrix")]
+        [global::System.Configuration.DefaultSettingValueAttribute("https://maiw.cloud/matrix")]
         public string ServerPath {
             get {
                 return ((string)(this["ServerPath"]));

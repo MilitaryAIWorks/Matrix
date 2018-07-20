@@ -33,7 +33,7 @@ namespace Matrix.Wpf
             GetCredits();
             GetUserSettings();
             packages = packageService.Create(settings, versions, serverPath);
-            AutoUpdater.Start("https://militaryaiworks.com/matrix/app/latestVersion.xml");
+            AutoUpdater.Start($"{serverPath}/app/latestVersion.xml");
         }
 
         #endregion
