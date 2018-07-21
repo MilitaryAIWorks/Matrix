@@ -141,6 +141,7 @@
     <None Include="app.manifest">
       <SubType>Designer</SubType>
     </None>
+    <SplashScreen Include="Images\matrix_splash.png" />
     <Content Include="NLog.config">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
