@@ -238,7 +238,11 @@ namespace Matrix.Wpf
                 cmbRegionPicker.Items.Add(packages[3]);
             }
 
-            btnInstallRegionEurope.IsEnabled = false; //if (packages[4].IsInstalled) MarkAsInstalled(btnInstallRegionEurope);
+            if (packages[4].IsInstalled)
+            {
+                MarkAsInstalled(btnInstallRegionEurope);
+                cmbRegionPicker.Items.Add(packages[4]);
+            }
 
             btnInstallRegionNA.IsEnabled = false; //if (packages[5].IsInstalled) MarkAsInstalled(btnInstallRegionNA);
 
