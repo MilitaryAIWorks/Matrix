@@ -261,7 +261,7 @@ namespace Matrix.Wpf
             //Set update buttons
             if (packages[0].IsInstalled && packages[0].Updates.Count != 0) MarkAsUpdatesAvailable(btnUpdateGlobalLibraries, bdgGlobalLibraries, packages[0]); else MarkAsNoUpdatesAvailable(btnUpdateGlobalLibraries, bdgGlobalLibraries);
             if (packages[2].IsInstalled && packages[2].Updates.Count != 0) MarkAsUpdatesAvailable(btnUpdateRegionAfrica, bdgRegionAfrica, packages[2]); else MarkAsNoUpdatesAvailable(btnUpdateRegionAfrica, bdgRegionAfrica);
-            if (packages[3].IsInstalled && packages[3].Updates.Count != 0) MarkAsUpdatesAvailable(btnUpdateRegionAsia, bdgRegionAsia,packages[3]); else MarkAsNoUpdatesAvailable(btnUpdateRegionAsia, bdgRegionAsia);
+            if (packages[3].IsInstalled && packages[3].Updates.Count != 0) MarkAsUpdatesAvailable(btnUpdateRegionAsia, bdgRegionAsia, packages[3]); else MarkAsNoUpdatesAvailable(btnUpdateRegionAsia, bdgRegionAsia);
             if (packages[4].IsInstalled && packages[4].Updates.Count != 0) MarkAsUpdatesAvailable(btnUpdateRegionEurope, bdgRegionEurope, packages[4]); else MarkAsNoUpdatesAvailable(btnUpdateRegionEurope, bdgRegionEurope);
             if (packages[5].IsInstalled && packages[5].Updates.Count != 0) MarkAsUpdatesAvailable(btnUpdateRegionNA, bdgRegionNA, packages[5]); else MarkAsNoUpdatesAvailable(btnUpdateRegionNA, bdgRegionNA);
             if (packages[6].IsInstalled && packages[6].Updates.Count != 0) MarkAsUpdatesAvailable(btnUpdateRegionOceania, bdgRegionOceania, packages[6]); else MarkAsNoUpdatesAvailable(btnUpdateRegionOceania, bdgRegionOceania);
@@ -294,24 +294,24 @@ namespace Matrix.Wpf
 
         private async Task ChangeInstallPath()
         {
-                await this.ShowMessageAsync("Settings", "Please select where you want Matrix to install your military AI traffic.");
+            await this.ShowMessageAsync("Settings", "Please select where you want Matrix to install your military AI traffic.");
 
-                WinForms.FolderBrowserDialog dlg = new WinForms.FolderBrowserDialog();
-                dlg.Description = "Please select the folder where you want Matrix to install your military AI traffic.";
+            WinForms.FolderBrowserDialog dlg = new WinForms.FolderBrowserDialog();
+            dlg.Description = "Please select the folder where you want Matrix to install your military AI traffic.";
 
-                WinForms.DialogResult result = dlg.ShowDialog();
-                if (result == WinForms.DialogResult.OK)
+            WinForms.DialogResult result = dlg.ShowDialog();
+            if (result == WinForms.DialogResult.OK)
+            {
+                if (Directory.Exists(dlg.SelectedPath))
                 {
-                    if (Directory.Exists(dlg.SelectedPath))
-                    {
-                        installPath = Path.Combine(dlg.SelectedPath , "Military AI Works\\");
-                        txtInstallationFolder.Text = installPath;
-                    }
-                    else
-                    {
-                        await this.ShowMessageAsync("Error", "There was a problem with the selected folder, or access to the folder was denied.");
-                    }
+                    installPath = Path.Combine(dlg.SelectedPath, "Military AI Works\\");
+                    txtInstallationFolder.Text = installPath;
                 }
+                else
+                {
+                    await this.ShowMessageAsync("Error", "There was a problem with the selected folder, or access to the folder was denied.");
+                }
+            }
         }
 
         #endregion
@@ -480,6 +480,13 @@ namespace Matrix.Wpf
                     p.InstalledVersion = p.CurrentVersion;
                     MarkAsInstalled(b);
 
+                    //Add package to cmbRegionPicker
+                    cmbRegionPicker.SelectedItem = null;
+                    lstAirfieldPicker.Items.Clear();
+                    if (p != packages[0] && !cmbRegionPicker.Items.Contains(p))
+                    {
+                        cmbRegionPicker.Items.Add(p);
+                    }
 
                     //Close progress and show success message
                     await progress.CloseAsync();
@@ -489,6 +496,10 @@ namespace Matrix.Wpf
 
             else //package is installed
             {
+                //Clear Airfield Status selection
+                cmbRegionPicker.SelectedItem = null;
+                lstAirfieldPicker.Items.Clear();
+
                 //Uninstall
                 try
                 {
@@ -504,6 +515,9 @@ namespace Matrix.Wpf
                 //Change user setting and button
                 p.IsInstalled = false;
                 MarkAsUninstalled(b);
+
+                //Remove package from cmbRegionPicker
+                if (cmbRegionPicker.Items.Contains(p)) cmbRegionPicker.Items.Remove(p);
 
                 //Show success message
                 await this.ShowMessageAsync("Success!", $"{p.Name} is uninstalled.");
@@ -611,17 +625,17 @@ namespace Matrix.Wpf
 
             //Close progress and show success message
             await progress.CloseAsync();
-            await this.ShowMessageAsync("Success!", $"{p.Name} is updated.");            
+            await this.ShowMessageAsync("Success!", $"{p.Name} is updated.");
         }
 
         #endregion
 
         #region Airfield Status
-        
-        private void GenerateAirfieldList ()
+
+        private void GenerateAirfieldList()
         {
             lstAirfieldPicker.Items.Clear();
-            
+
             airfields = Directory.GetFiles(sceneryPath);
 
             foreach (string airfield in airfields)
@@ -664,7 +678,7 @@ namespace Matrix.Wpf
         {
             //Open user manual PDF
             string path = Path.Combine(Directory.GetCurrentDirectory(), "Matrix-Manual.pdf");
-            if (File.Exists(path)) Process.Start(path);            
+            if (File.Exists(path)) Process.Start(path);
         }
 
         private void btnSupport_Click(object sender, RoutedEventArgs e)
@@ -960,18 +974,22 @@ namespace Matrix.Wpf
         {
             Package selectedRegion = (Package)cmbRegionPicker.SelectedItem;
 
-            try
+            if (selectedRegion != null)
             {
-                sceneryPath = Path.Combine(installPath, selectedRegion.FolderName, selectedRegion.FolderName) + "_AIRBASES\\Scenery";
+                try
+                {
+                    sceneryPath = Path.Combine(installPath, selectedRegion.FolderName, selectedRegion.FolderName) + "_AIRBASES\\Scenery";
 
-                GenerateAirfieldList();
-                if (lstAirfieldPicker.Items.Count > 0) lstAirfieldPicker.ScrollIntoView(lstAirfieldPicker.Items[0]);
+                    GenerateAirfieldList();
+                    if (lstAirfieldPicker.Items.Count > 0) lstAirfieldPicker.ScrollIntoView(lstAirfieldPicker.Items[0]);
+                }
+                catch (Exception ex)
+                {
+                    logger.Error(ex, "Airfield Status Settings Error");
+                    await this.ShowMessageAsync("Error", "Matrix can not find the airbase scenery folder for the selected region.");
+                }
             }
-            catch (Exception ex)
-            {
-                logger.Error(ex, "Airfield Status Settings Error");
-                await this.ShowMessageAsync("Error", "Matrix can not find the airbase scenery folder for the selected region.");
-            }
+
         }
 
         private void btnAirfieldStatus_Click(object sender, RoutedEventArgs e)
@@ -993,7 +1011,7 @@ namespace Matrix.Wpf
                 lstAirfieldPicker.SelectedIndex = selectedIndex;
             }
         }
-        
+
         private void MetroWindow_Closed(object sender, EventArgs e)
         {
             SaveUserSettings();
