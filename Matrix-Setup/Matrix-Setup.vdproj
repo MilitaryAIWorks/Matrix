@@ -82,13 +82,13 @@
         "Entry"
         {
         "MsmKey" = "8:_A70583D9D773CBA5BF7ED9346EA576D2"
-        "OwnerKey" = "8:_E7CD53234D094E7C98E3F3238AC7FA69"
+        "OwnerKey" = "8:_6D724027264478D7CAC7BA6A510DE46C"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_A70583D9D773CBA5BF7ED9346EA576D2"
-        "OwnerKey" = "8:_6D724027264478D7CAC7BA6A510DE46C"
+        "OwnerKey" = "8:_E7CD53234D094E7C98E3F3238AC7FA69"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -124,43 +124,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_917F2EE50DD60709F9339096E70FED00"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_BA0B32E62DEC4A5C4F5106565980E1EC"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_2C17A08533BB8CE140BD5EF5C5DB3AE1"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_680F6D62A8C25327D3F70304C6969BBB"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_A70583D9D773CBA5BF7ED9346EA576D2"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_E45CC847ED3098B726DD82F8BD59AE4A"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_989EF60BD012755B6D742DF415FF44A5"
+        "OwnerKey" = "8:_82AD1574FCA5C7AD1A2F8010B1A6836A"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -172,7 +136,43 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_82AD1574FCA5C7AD1A2F8010B1A6836A"
+        "OwnerKey" = "8:_989EF60BD012755B6D742DF415FF44A5"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_E45CC847ED3098B726DD82F8BD59AE4A"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_A70583D9D773CBA5BF7ED9346EA576D2"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_680F6D62A8C25327D3F70304C6969BBB"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_2C17A08533BB8CE140BD5EF5C5DB3AE1"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_BA0B32E62DEC4A5C4F5106565980E1EC"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_917F2EE50DD60709F9339096E70FED00"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -639,15 +639,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Matrix"
-        "ProductCode" = "8:{7EF9A392-57BB-4FE6-B6C9-F30CD271C2F5}"
-        "PackageCode" = "8:{E8F03717-B225-4790-8174-DB16323D29B4}"
+        "ProductCode" = "8:{E6E77E6D-E6A0-41F8-B4AB-BD05E0351D60}"
+        "PackageCode" = "8:{1FF97AB7-6646-4CF4-BA60-A172CE98DD3B}"
         "UpgradeCode" = "8:{3273C66A-7F82-401F-AD9D-D48D2403C434}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.2.0"
+        "ProductVersion" = "8:1.2.1"
         "Manufacturer" = "8:Military AI Works"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:https://militaryaiworks.com/forums"
