@@ -12,13 +12,20 @@
 
 - [Region Africa](https://maiw.cloud/matrix/docs/MAIW-RegionAfrica.pdf)
 - [Region Asia](https://maiw.cloud/matrix/docs/MAIW-RegionAsia.pdf)
-- [Region Europe](https://maiw.cloud/matrix/docs/MAIW-RegionEurope.pdf) (Unreleased)
+- [Region Europe](https://maiw.cloud/matrix/docs/MAIW-RegionEurope.pdf)
 - [Region North America](https://maiw.cloud/matrix/docs/MAIW-RegionNA.pdf) (Unreleased)
 - [Region Oceania](https://maiw.cloud/matrix/docs/MAIW-RegionOceania.pdf)
 - [Region South America](https://maiw.cloud/matrix/docs/MAIW-RegionSA.pdf)
 
 <h2>Screenshots</h2>
 
-<div align="center">
-  <img alt="screenshot01" src="https://maiw.cloud/matrix/screenshots/matrixAlpha1Regions.jpg">
-</div>
+<h3>Home</h3>
+<img alt="screenshot01" src="https://maiw.cloud/matrix/screenshots/Matrix_1.1.0_Home.jpg">
+<h3>Global</h3>
+<img alt="screenshot01" src="https://maiw.cloud/matrix/screenshots/Matrix_1.1.0_Global.jpg">
+<h3>Regions</h3>
+<img alt="screenshot01" src="https://maiw.cloud/matrix/screenshots/Matrix_1.1.0_Regions.jpg">
+<h3>Credits</h3>
+<img alt="screenshot01" src="https://maiw.cloud/matrix/screenshots/Matrix_1.1.0_Credits.jpg">
+<h3>Settings</h3>
+<img alt="screenshot01" src="https://maiw.cloud/matrix/screenshots/Matrix_1.1.0_Settings.jpg">
