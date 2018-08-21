@@ -244,7 +244,11 @@ namespace Matrix.Wpf
                 cmbRegionPicker.Items.Add(packages[4]);
             }
 
-            btnInstallRegionNA.IsEnabled = false; //if (packages[5].IsInstalled) MarkAsInstalled(btnInstallRegionNA);
+            if (packages[5].IsInstalled)
+            {
+                MarkAsInstalled(btnInstallRegionNA);
+                cmbRegionPicker.Items.Add(packages[5]);
+            }
 
             if (packages[6].IsInstalled)
             {
