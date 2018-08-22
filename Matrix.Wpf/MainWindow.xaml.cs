@@ -596,6 +596,9 @@ namespace Matrix.Wpf
                         //Short pause
                         await Task.Delay(1500);
 
+                        //Close progress
+                        await progress.CloseAsync();
+
                     }
                     catch (WebException we)
                     {
@@ -627,8 +630,7 @@ namespace Matrix.Wpf
             MarkAsNoUpdatesAvailable(u, b);
 
 
-            //Close progress and show success message
-            await progress.CloseAsync();
+            //Show success message
             await this.ShowMessageAsync("Success!", $"{p.Name} is updated.");
         }
 
