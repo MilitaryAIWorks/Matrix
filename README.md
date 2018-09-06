@@ -13,7 +13,7 @@
 - [Region Africa](https://maiw.cloud/matrix/docs/MAIW-RegionAfrica.pdf)
 - [Region Asia](https://maiw.cloud/matrix/docs/MAIW-RegionAsia.pdf)
 - [Region Europe](https://maiw.cloud/matrix/docs/MAIW-RegionEurope.pdf)
-- [Region North America](https://maiw.cloud/matrix/docs/MAIW-RegionNA.pdf) (Unreleased)
+- [Region North America](https://maiw.cloud/matrix/docs/MAIW-RegionNA.pdf)
 - [Region Oceania](https://maiw.cloud/matrix/docs/MAIW-RegionOceania.pdf)
 - [Region South America](https://maiw.cloud/matrix/docs/MAIW-RegionSA.pdf)
 
@@ -24,7 +24,7 @@
 <h3>Global</h3>
 <img alt="screenshot01" src="https://maiw.cloud/matrix/screenshots/Matrix_1.1.0_Global.jpg">
 <h3>Regions</h3>
-<img alt="screenshot01" src="https://maiw.cloud/matrix/screenshots/Matrix_1.1.0_Regions.jpg">
+<img alt="screenshot01" src="https://maiw.cloud/matrix/screenshots/Matrix_1.3.0_Regions.jpg">
 <h3>Credits</h3>
 <img alt="screenshot01" src="https://maiw.cloud/matrix/screenshots/Matrix_1.1.0_Credits.jpg">
 <h3>Settings</h3>
