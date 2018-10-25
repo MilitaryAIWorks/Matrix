@@ -913,37 +913,37 @@ namespace Matrix.Wpf
             await ClickUpdateButton(packages[7], btnUpdateRegionSA, bdgRegionSA);
         }
 
-        private void imgRegionAfrica_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void iconReadmeRegionAfrica_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             string url = $"{serverPath}/docs/MAIW-RegionAfrica.pdf";
             Process.Start(url);
         }
 
-        private void imgRegionAsia_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void iconReadmeRegionAsia_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             string url = $"{serverPath}/docs/MAIW-RegionAsia.pdf";
             Process.Start(url);
         }
 
-        private void imgRegionEurope_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void iconReadmeRegionEurope_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             string url = $"{serverPath}/docs/MAIW-RegionEurope.pdf";
             Process.Start(url);
         }
 
-        private void imgRegionNA_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void iconReadmeRegionNA_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             string url = $"{serverPath}/docs/MAIW-RegionNA.pdf";
             Process.Start(url);
         }
 
-        private void imgRegionOceania_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void iconReadmeRegionOceania_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             string url = $"{serverPath}/docs/MAIW-RegionOceania.pdf";
             Process.Start(url);
         }
 
-        private void imgRegionSA_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void iconReadmeRegionSA_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             string url = $"{serverPath}/docs/MAIW-RegionSA.pdf";
             Process.Start(url);
@@ -1024,5 +1024,6 @@ namespace Matrix.Wpf
         }
 
         #endregion
+
     }
 }
