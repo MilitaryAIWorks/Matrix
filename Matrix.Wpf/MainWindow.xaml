@@ -77,7 +77,7 @@
             <TabItem x:Name="tabRegions">
                 <Grid>
                     <Label Content="REGIONAL PACKAGES" Margin="10,0,-29,0" VerticalAlignment="Top" Height="60" FontSize="30" />
-                    <TextBlock Margin="10,65,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="60" Padding="5"><Run Text="Welcome to the regional MAIW packages page. Here you can install traffic for any region you want, consisting of aircraft models, repaints, flightplans and airbase scenery. "/><Run Text="Click on "/><Run Text="a region's "/><Run Text="image to learn more about the"/><Run Text=" included units"/><Run Text=" and airfields for that region"/><Run Text=". "/><Run Text="T"/><Run Text="he Global Libraries "/><Run Text="are required"/><Run Text="."/></TextBlock>
+                    <TextBlock Margin="10,65,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="60" Padding="5"><Run Text="Welcome to the regional MAIW packages page. Here you can install traffic for any region you want, consisting of aircraft models, repaints, flightplans and airbase scenery. Click on a region's info button to open the pdf file with the included units and airfields for that region. The Global Libraries are required."/></TextBlock>
                     <GroupBox Header="Africa" HorizontalAlignment="Left" Height="200" Margin="10,140,0,0" VerticalAlignment="Top" Width="240">
                         <Grid>
                             <Image x:Name="imgRegionAfrica" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Margin="65,10" Source="Images/africa.png" />
