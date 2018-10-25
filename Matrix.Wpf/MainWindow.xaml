@@ -61,7 +61,7 @@
                         <Grid>
                             <Image HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Margin="65,10" Source="Images/global.png"/>
                             <Button x:Name="btnInstallGlobalLibraries" Content="Install" HorizontalAlignment="Left" Margin="10,125,0,0" VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="btnInstallGlobalLibraries_Click"/>
-                            <Controls:Badged x:Name="bdgGlobalLibraries" Badge="0" Margin="118,125,10,0">
+                            <Controls:Badged x:Name="bdgGlobalLibraries" Badge="0" Margin="118,125,10,0" BadgeBackground="#FFC80000">
                                 <Button x:Name="btnUpdateGlobalLibraries" Content="Update" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="btnUpdateGlobalLibraries_Click" IsEnabled="False"/>
                             </Controls:Badged>
                         </Grid>
@@ -82,7 +82,7 @@
                         <Grid>
                             <Image x:Name="imgRegionAfrica" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Margin="65,10" Source="Images/africa.png" />
                             <Button x:Name="btnInstallRegionAfrica" Content="Install" HorizontalAlignment="Left" Margin="10,125,0,0" VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="btnInstallRegionAfrica_Click"/>
-                            <Controls:Badged x:Name="bdgRegionAfrica" Badge="0" Margin="118,125,10,0">
+                            <Controls:Badged x:Name="bdgRegionAfrica" Badge="0" Margin="118,125,10,0" BadgeBackground="#FFC80000">
                                 <Button x:Name="btnUpdateRegionAfrica" Content="Update" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="btnUpdateRegionAfrica_Click" IsEnabled="False"/>
                             </Controls:Badged>
                         </Grid>
@@ -91,7 +91,7 @@
                         <Grid>
                             <Image x:Name="imgRegionAsia" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Margin="65,10" Source="Images/asia.png" />
                             <Button x:Name="btnInstallRegionAsia" Content="Install" HorizontalAlignment="Left" Margin="10,125,0,0" VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="btnInstallRegionAsia_Click"/>
-                            <Controls:Badged x:Name="bdgRegionAsia" Badge="0" Margin="118,125,10,0">
+                            <Controls:Badged x:Name="bdgRegionAsia" Badge="0" Margin="118,125,10,0" BadgeBackground="#FFC80000">
                                 <Button x:Name="btnUpdateRegionAsia" Content="Update" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="btnUpdateRegionAsia_Click" IsEnabled="False"/>
                             </Controls:Badged>
                         </Grid>
@@ -100,7 +100,7 @@
                         <Grid>
                             <Image x:Name="imgRegionEurope" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Margin="65,10" Source="Images/europe.png" />
                             <Button x:Name="btnInstallRegionEurope" Content="Install" HorizontalAlignment="Left" Margin="10,125,0,0" VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="btnInstallRegionEurope_Click"/>
-                            <Controls:Badged x:Name="bdgRegionEurope" Badge="0" Margin="118,125,10,0">
+                            <Controls:Badged x:Name="bdgRegionEurope" Badge="0" Margin="118,125,10,0" BadgeBackground="#FFC80000">
                                 <Button x:Name="btnUpdateRegionEurope" Content="Update" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="btnUpdateRegionEurope_Click" IsEnabled="False"/>
                             </Controls:Badged>
                         </Grid>
@@ -109,7 +109,7 @@
                         <Grid>
                             <Image x:Name="imgRegionNA" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Margin="65,10" Source="Images/northamerica.png" />
                             <Button x:Name="btnInstallRegionNA" Content="Install" HorizontalAlignment="Left" Margin="10,125,0,0" VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="btnInstallRegionNA_Click"/>
-                            <Controls:Badged x:Name="bdgRegionNA" Badge="0" Margin="118,125,10,0">
+                            <Controls:Badged x:Name="bdgRegionNA" Badge="0" Margin="118,125,10,0" BadgeBackground="#FFC80000">
                                 <Button x:Name="btnUpdateRegionNA" Content="Update" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="btnUpdateRegionNA_Click" IsEnabled="False"/>
                             </Controls:Badged>
                         </Grid>
@@ -118,7 +118,7 @@
                         <Grid>
                             <Image x:Name="imgRegionOceania" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Margin="65,10" Source="Images/oceania.png" />
                             <Button x:Name="btnInstallRegionOceania" Content="Install" HorizontalAlignment="Left" Margin="10,125,0,0" VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="btnInstallRegionOceania_Click"/>
-                            <Controls:Badged x:Name="bdgRegionOceania" Badge="0" Margin="118,125,10,0">
+                            <Controls:Badged x:Name="bdgRegionOceania" Badge="0" Margin="118,125,10,0" BadgeBackground="#FFC80000">
                                 <Button x:Name="btnUpdateRegionOceania" Content="Update" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="btnUpdateRegionOceania_Click" IsEnabled="False"/>
                             </Controls:Badged>
                         </Grid>
@@ -127,7 +127,7 @@
                         <Grid>
                             <Image x:Name="imgRegionSA" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Margin="65,10" Source="Images/southamerica.png" />
                             <Button x:Name="btnInstallRegionSA" Content="Install" HorizontalAlignment="Left" Margin="10,125,0,0" VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="btnInstallRegionSA_Click"/>
-                            <Controls:Badged x:Name="bdgRegionSA" Badge="0" Margin="118,125,10,0">
+                            <Controls:Badged x:Name="bdgRegionSA" Badge="0" Margin="118,125,10,0" BadgeBackground="#FFC80000">
                                 <Button x:Name="btnUpdateRegionSA" Content="Update" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="btnUpdateRegionSA_Click" IsEnabled="False"/>
                             </Controls:Badged>
                         </Grid>
