@@ -333,7 +333,7 @@ namespace Matrix.Wpf
 
         private async Task DownloadFile(string fileName, string location)
         {
-            string url = $"{serverPath}/packages/{fileName}.zip";
+            string url = $"{serverPath}/packages/install/{fileName}.zip";
             string filePath = Path.Combine(location, fileName) + ".zip";
 
             client = new WebClient();
@@ -343,7 +343,7 @@ namespace Matrix.Wpf
 
         private async Task DownloadUpdate(string fileName, string location)
         {
-            string url = $"{serverPath}/packages/updates/{fileName}.zip";
+            string url = $"{serverPath}/packages/update/{fileName}.zip";
             string filePath = Path.Combine(location, fileName) + ".zip";
 
             client = new WebClient();
@@ -424,20 +424,64 @@ namespace Matrix.Wpf
                     {
                         try
                         {
-                            //Download Package
-                            await DownloadFile(p.FileName, tempPath);
-                            progress.SetMessage("Done!");
+                            //Create filename
+                            string filename = p.FileName + "_install_" + p.CurrentVersion;
 
-                            //Short pause
-                            await Task.Delay(1500);
+                            if (p == packages[5])
+                            {
+                                //Download Part 1
+                                progress.SetTitle("Downloading Part 1...");
+                                await DownloadFile(filename + "_part1", tempPath);
+                                progress.SetMessage("Done!");
 
-                            //Unzip Package
-                            progress.SetTitle("Unpacking...");
-                            progress.SetMessage("");
-                            progress.SetIndeterminate();
-                            progress.SetCancelable(false);
-                            await UnzipFile(p.FileName);
-                            progress.SetMessage("Done!");
+                                //Short pause
+                                await Task.Delay(1500);
+
+                                //Unzip Part 1
+                                progress.SetTitle("Unpacking Part 1...");
+                                progress.SetMessage("");
+                                progress.SetIndeterminate();
+                                progress.SetCancelable(false);
+                                await UnzipFile(filename + "_part1");
+                                progress.SetMessage("Done!");
+
+                                //Short pause
+                                await Task.Delay(1500);
+
+                                //Download Part 2
+                                progress.SetTitle("Downloading Part 2...");
+                                progress.SetMessage("");
+                                progress.SetIndeterminate();
+                                await DownloadFile(filename + "_part2", tempPath);
+                                progress.SetMessage("Done!");
+
+                                //Short pause
+                                await Task.Delay(1500);
+
+                                //Unzip Part 2
+                                progress.SetTitle("Unpacking Part 2...");
+                                progress.SetMessage("");
+                                progress.SetIndeterminate();
+                                await UnzipFile(filename + "_part2");
+                                progress.SetMessage("Done!");
+                            }
+                            else
+                            {
+                                //Download Package
+                                await DownloadFile(filename, tempPath);
+                                progress.SetMessage("Done!");
+
+                                //Short pause
+                                await Task.Delay(1500);
+
+                                //Unzip Package
+                                progress.SetTitle("Unpacking...");
+                                progress.SetMessage("");
+                                progress.SetIndeterminate();
+                                progress.SetCancelable(false);
+                                await UnzipFile(filename);
+                                progress.SetMessage("Done!");
+                            }
 
                             //Short pause
                             await Task.Delay(1500);
@@ -538,12 +582,12 @@ namespace Matrix.Wpf
 
                 if (!progress.IsCanceled)
                 {
-                    string fileName = p.FileName + "_" + update;
+                    string fileName = p.FileName + "_update_" + update;
 
                     try
                     {
                         //Download File Removal List
-                        WebRequest request = WebRequest.Create($"{serverPath}/packages/updates/{fileName}.txt");
+                        WebRequest request = WebRequest.Create($"{serverPath}/packages/update/{fileName}.txt");
                         WebResponse response = await request.GetResponseAsync();
                         List<string> files = new List<string>();
 
