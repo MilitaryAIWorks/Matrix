@@ -24,7 +24,7 @@
 <h3>Global</h3>
 <img alt="screenshot01" src="https://maiw.cloud/matrix/screenshots/Matrix_1.1.0_Global.jpg">
 <h3>Regions</h3>
-<img alt="screenshot01" src="https://maiw.cloud/matrix/screenshots/Matrix_1.3.0_Regions.jpg">
+<img alt="screenshot01" src="https://maiw.cloud/matrix/screenshots/Matrix_Regions_1.4.0_.jpg">
 <h3>Credits</h3>
 <img alt="screenshot01" src="https://maiw.cloud/matrix/screenshots/Matrix_1.1.0_Credits.jpg">
 <h3>Settings</h3>
