@@ -611,7 +611,7 @@ namespace Matrix.Wpf
                             {
                                 string path = installPath + p.FolderName + f;
                                 if (File.Exists(path)) File.Delete(path);
-                                else if (Directory.Exists(path)) Directory.Delete(path);
+                                else if (Directory.Exists(path)) Directory.Delete(path, true);
                             }
                         }
                         progress.SetMessage("Done!");
