@@ -427,43 +427,29 @@ namespace Matrix.Wpf
                             //Create filename
                             string filename = p.FileName + "_install_" + p.CurrentVersion;
 
-                            if (p == packages[5])
+                            if (p.Parts > 1)
                             {
-                                //Download Part 1
-                                progress.SetTitle("Downloading Part 1...");
-                                await DownloadFile(filename + "_part1", tempPath);
-                                progress.SetMessage("Done!");
+                                for (int i = 1; i <= p.Parts; i++)
+                                {
+                                    //Download Part i
+                                    progress.SetTitle($"Downloading Part {i} of {p.Parts}...");
+                                    await DownloadFile(filename + $"_part{i}", tempPath);
+                                    progress.SetMessage("Done!");
 
-                                //Short pause
-                                await Task.Delay(1500);
+                                    //Short pause
+                                    await Task.Delay(1500);
 
-                                //Unzip Part 1
-                                progress.SetTitle("Unpacking Part 1...");
-                                progress.SetMessage("");
-                                progress.SetIndeterminate();
-                                progress.SetCancelable(false);
-                                await UnzipFile(filename + "_part1");
-                                progress.SetMessage("Done!");
+                                    //Unzip Part i
+                                    progress.SetTitle($"Unpacking Part {i} of {p.Parts}...");
+                                    progress.SetMessage("");
+                                    progress.SetIndeterminate();
+                                    progress.SetCancelable(false);
+                                    await UnzipFile(filename + $"_part{i}");
+                                    progress.SetMessage("Done!");
 
-                                //Short pause
-                                await Task.Delay(1500);
-
-                                //Download Part 2
-                                progress.SetTitle("Downloading Part 2...");
-                                progress.SetMessage("");
-                                progress.SetIndeterminate();
-                                await DownloadFile(filename + "_part2", tempPath);
-                                progress.SetMessage("Done!");
-
-                                //Short pause
-                                await Task.Delay(1500);
-
-                                //Unzip Part 2
-                                progress.SetTitle("Unpacking Part 2...");
-                                progress.SetMessage("");
-                                progress.SetIndeterminate();
-                                await UnzipFile(filename + "_part2");
-                                progress.SetMessage("Done!");
+                                    //Short pause
+                                    if (i < p.Parts) await Task.Delay(1500);
+                                }
                             }
                             else
                             {
@@ -487,7 +473,7 @@ namespace Matrix.Wpf
                             await Task.Delay(1500);
 
                             //Create addon.xml file
-                            progress.SetTitle("Creating add-on.xml...");
+                            progress.SetTitle("Creating Add-on...");
                             progress.SetMessage("");
                             progress.SetProgress(0);
                             packageService.CreateAddon(p, installPath, manual);
