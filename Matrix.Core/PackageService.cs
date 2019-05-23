@@ -84,16 +84,19 @@ namespace Matrix.Lib
                 {
                     //Get package details
                     XmlNode nameNode = packageNode.SelectSingleNode("Name");
+                    XmlNode partsNode = packageNode.SelectSingleNode("Parts");
                     XmlNode currentNode = packageNode.SelectSingleNode("Current");
                     XmlNodeList versionNodes = packageNode.SelectNodes("Version");
 
                     string currentVersion = currentNode.InnerText;
+                    int parts = int.Parse(partsNode.InnerText);
 
                     foreach (Package p in packages)
                     {
                         if (p.Name == nameNode.InnerText)
                         {
                             p.CurrentVersion = currentVersion;
+                            p.Parts = parts;
 
                             if (p.IsInstalled && p.InstalledVersion != p.CurrentVersion)
                             {
