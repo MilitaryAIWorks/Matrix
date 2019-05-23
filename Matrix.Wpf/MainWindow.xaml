@@ -36,8 +36,8 @@
             <ListBoxItem Content="SETTINGS" Padding="0,10"/>
         </ListBox>
         <Button x:Name="btnDonate" Content="Donate" HorizontalAlignment="Left" Margin="30,499,0,0" VerticalAlignment="Top" Width="128" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="btnDonate_Click"/>
-        <Label Content="Version 1.4.1" Margin="15,0,0,40" FontSize="11" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="160" HorizontalContentAlignment="Center"/>
-        <Label Content="© 2018 Military AI Works" Margin="15,0,0,15" FontSize="11" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="160" HorizontalContentAlignment="Center"/>
+        <Label Content="Version 1.5.0" Margin="15,0,0,40" FontSize="11" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="160" HorizontalContentAlignment="Center"/>
+        <Label Content="© 2018-2019 Military AI Works" Margin="15,0,0,15" FontSize="11" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="160" HorizontalContentAlignment="Center"/>
 
 
         <TabControl x:Name="tclMainWindow" Margin="190,5,10,10" Background="{x:Null}" BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="2" ClipToBounds="True" SelectedIndex="0">
