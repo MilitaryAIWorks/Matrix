@@ -5,15 +5,17 @@ namespace Matrix.Lib
 
     class AddonService
     {
+        XmlWriterSettings settings = new XmlWriterSettings
+        {
+            Indent = true,
+            OmitXmlDeclaration = true, //Omits the XML declaration since it's not needed in add-on.xml files
+            ConformanceLevel = ConformanceLevel.Fragment //Required to make the OmitXmlDeclaration work
+        };
+
         public void WriteGlobalAddonXml(Package p, string addonFolder, string installPath)
         {
             string addonPath = $"{addonFolder}\\add-on.xml";
             string subInstallPath = $"{installPath}{p.FolderName}\\{p.FolderName}_";
-
-            XmlWriterSettings settings = new XmlWriterSettings();
-            settings.Indent = true;
-            settings.OmitXmlDeclaration = true;  //Omits the XML declaration since it's not needed in add-on.xml files
-            settings.ConformanceLevel = ConformanceLevel.Fragment;  //Required to make the OmitXmlDeclaration work
 
             using (XmlWriter writer = XmlWriter.Create(addonPath, settings))
             {
@@ -76,11 +78,6 @@ namespace Matrix.Lib
         {
             string addonPath = $"{addonFolder}\\add-on.xml";
             string subInstallPath = $"{installPath}{p.FolderName}\\{p.FolderName}_";
-
-            XmlWriterSettings settings = new XmlWriterSettings();
-            settings.Indent = true;
-            settings.OmitXmlDeclaration = true; //Omits the XML declaration since it's not needed in add-on.xml files
-            settings.ConformanceLevel = ConformanceLevel.Fragment; //Required to make the OmitXmlDeclaration work
 
             using (XmlWriter writer = XmlWriter.Create(addonPath, settings))
             {

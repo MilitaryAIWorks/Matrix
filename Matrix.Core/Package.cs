@@ -17,6 +17,8 @@ namespace Matrix.Lib
 
         public string CurrentVersion { get; set; }
 
+        public int Parts { get; set; }
+
         public List<string> Updates { get; set; }
 
         public Package(string name, string fileName, string folderName, bool isInstalled, string version)

@@ -9,27 +9,17 @@ namespace Matrix.Lib
     {
         public List<Package> Create(Dictionary<string, bool> settings, Dictionary<string, string> versions, string serverPath)
         {
-            //Create Package objects
-            Package globalLibraries = new Package("MAIW Global Libraries", "maiwGlobalLibraries", "MAIW_GLOBAL", settings["isInstalledGlobalLibraries"], versions["versionGlobalLibraries"]);
-            Package globalVoicepack = new Package("MAIW Global Voicepack", "maiwGlobalVoicepack");
-            Package regionAfrica = new Package("MAIW Region Africa", "maiwRegionAfrica", "MAIW_AFRICA", settings["isInstalledRegionAfrica"], versions["versionRegionAfrica"]);
-            Package regionAsia = new Package("MAIW Region Asia", "maiwRegionAsia", "MAIW_ASIA", settings["isInstalledRegionAsia"], versions["versionRegionAsia"]);
-            Package regionEurope = new Package("MAIW Region Europe", "maiwRegionEurope", "MAIW_EUROPE", settings["isInstalledRegionEurope"], versions["versionRegionEurope"]);
-            Package regionNA = new Package("MAIW Region North America", "maiwRegionNA", "MAIW_NA", settings["isInstalledRegionNA"], versions["versionRegionNA"]);
-            Package regionOceania = new Package("MAIW Region Oceania", "maiwRegionOceania", "MAIW_OCEANIA", settings["isInstalledRegionOceania"], versions["versionRegionOceania"]);
-            Package regionSA = new Package("MAIW Region South America", "maiwRegionSA", "MAIW_SA", settings["isInstalledRegionSA"], versions["versionRegionSA"]);
-
-            //Add package to list
+            //Create packages list
             List<Package> packages = new List<Package>
             {
-                globalLibraries,
-                globalVoicepack,
-                regionAfrica,
-                regionAsia,
-                regionEurope,
-                regionNA,
-                regionOceania,
-                regionSA
+                new Package("MAIW Global Libraries", "maiwGlobalLibraries", "MAIW_GLOBAL", settings["isInstalledGlobalLibraries"], versions["versionGlobalLibraries"]),
+                new Package("MAIW Global Voicepack", "maiwGlobalVoicepack"),
+                new Package("MAIW Region Africa", "maiwRegionAfrica", "MAIW_AFRICA", settings["isInstalledRegionAfrica"], versions["versionRegionAfrica"]),
+                new Package("MAIW Region Asia", "maiwRegionAsia", "MAIW_ASIA", settings["isInstalledRegionAsia"], versions["versionRegionAsia"]),
+                new Package("MAIW Region Europe", "maiwRegionEurope", "MAIW_EUROPE", settings["isInstalledRegionEurope"], versions["versionRegionEurope"]),
+                new Package("MAIW Region North America", "maiwRegionNA", "MAIW_NA", settings["isInstalledRegionNA"], versions["versionRegionNA"]),
+                new Package("MAIW Region Oceania", "maiwRegionOceania", "MAIW_OCEANIA", settings["isInstalledRegionOceania"], versions["versionRegionOceania"]),
+                new Package("MAIW Region South America", "maiwRegionSA", "MAIW_SA", settings["isInstalledRegionSA"], versions["versionRegionSA"])
             };
 
             //Check each package for updates
@@ -94,16 +84,19 @@ namespace Matrix.Lib
                 {
                     //Get package details
                     XmlNode nameNode = packageNode.SelectSingleNode("Name");
+                    XmlNode partsNode = packageNode.SelectSingleNode("Parts");
                     XmlNode currentNode = packageNode.SelectSingleNode("Current");
                     XmlNodeList versionNodes = packageNode.SelectNodes("Version");
 
                     string currentVersion = currentNode.InnerText;
+                    int parts = int.Parse(partsNode.InnerText);
 
                     foreach (Package p in packages)
                     {
                         if (p.Name == nameNode.InnerText)
                         {
                             p.CurrentVersion = currentVersion;
+                            p.Parts = parts;
 
                             if (p.IsInstalled && p.InstalledVersion != p.CurrentVersion)
                             {
