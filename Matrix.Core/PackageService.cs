@@ -24,7 +24,7 @@ namespace Matrix.Lib
 
             //Check each package for updates
 
-            UpdateChecker(packages, serverPath);
+            CheckForUpdates(packages, serverPath);
 
             //Return list
             return packages;
@@ -40,7 +40,9 @@ namespace Matrix.Lib
             if (Directory.Exists(addonFolder)) Directory.Delete(addonFolder, true);
         }
 
-        private void UpdateChecker(List<Package> packages, string url)
+        //Private methods
+
+        private void CheckForUpdates(List<Package> packages, string url)
         {
             XmlDocument xmlDoc = new XmlDocument();
 
