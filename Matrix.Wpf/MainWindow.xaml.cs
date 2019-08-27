@@ -47,6 +47,7 @@ namespace Matrix.Wpf
         bool manual;
         Dictionary<string, bool> settings = new Dictionary<string, bool>();
         Dictionary<string, string> versions = new Dictionary<string, string>();
+        AddonService addonService = new AddonService();
         PackageService packageService = new PackageService();
         List<Package> packages;
         WebClient client;
@@ -476,7 +477,7 @@ namespace Matrix.Wpf
                             progress.SetTitle("Creating Add-on...");
                             progress.SetMessage("");
                             progress.SetProgress(0);
-                            packageService.CreateAddon(p, installPath, manual);
+                            addonService.CreateAddon(p, installPath, manual);
                             await Task.Delay(1500);
                             progress.SetMessage("Done!");
                             progress.SetProgress(1);

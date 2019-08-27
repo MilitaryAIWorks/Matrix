@@ -1,18 +1,50 @@
-﻿using System.Xml;
+﻿using System;
+using System.IO;
+using System.Xml;
 
 namespace Matrix.Lib
 {
-
-    class AddonService
+    public class AddonService
     {
-        XmlWriterSettings settings = new XmlWriterSettings
+        public void CreateAddon(Package p, string installPath, bool manual)
+        {
+            string addonFolder = GetAddonFolder(p);
+
+            Directory.CreateDirectory(addonFolder);
+
+            if (p.Name == "MAIW Global Libraries")
+            {
+                WriteGlobalAddonXml(p, addonFolder, installPath);
+            }
+            else
+            {
+                WriteRegionAddonXml(p, addonFolder, installPath);
+            }
+
+            if (manual)
+            {
+                string xmlFile = addonFolder + "\\add-on.xml";
+                File.Move(xmlFile, Path.ChangeExtension(xmlFile, ".off"));
+            }
+        }
+
+        public string GetAddonFolder(Package p)
+        {
+            string myDocs = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            string addonFolder = myDocs + "\\Prepar3D v4 Add-ons\\" + p.Name;
+            return addonFolder;
+        }
+
+        //Write Xml
+
+        private readonly XmlWriterSettings settings = new XmlWriterSettings
         {
             Indent = true,
             OmitXmlDeclaration = true, //Omits the XML declaration since it's not needed in add-on.xml files
             ConformanceLevel = ConformanceLevel.Fragment //Required to make the OmitXmlDeclaration work
         };
 
-        public void WriteGlobalAddonXml(Package p, string addonFolder, string installPath)
+        private void WriteGlobalAddonXml(Package p, string addonFolder, string installPath)
         {
             string addonPath = $"{addonFolder}\\add-on.xml";
             string subInstallPath = $"{installPath}{p.FolderName}\\{p.FolderName}_";
@@ -74,7 +106,7 @@ namespace Matrix.Lib
             }
         }
 
-        public void WriteRegionAddonXml(Package p, string addonFolder, string installPath)
+        private void WriteRegionAddonXml(Package p, string addonFolder, string installPath)
         {
             string addonPath = $"{addonFolder}\\add-on.xml";
             string subInstallPath = $"{installPath}{p.FolderName}\\{p.FolderName}_";
