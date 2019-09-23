@@ -57,6 +57,7 @@ namespace Matrix.Wpf
         string sceneryPath;
         string[] airfields;
         Logger logger = LogManager.GetCurrentClassLogger();
+        int totalRegionUpdates = 0;
 
         #endregion
 
@@ -212,6 +213,16 @@ namespace Matrix.Wpf
         {
             u.IsEnabled = true;
             b.Badge = p.Updates.Count;
+
+            if (p == packages[0])
+            {
+                lbiGlobal.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFC80000");
+            }
+            else
+            {
+                lbiRegions.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFC80000");
+                totalRegionUpdates += p.Updates.Count;
+            }
         }
 
         void MarkAsNoUpdatesAvailable(Button u, Badged b)
@@ -219,6 +230,8 @@ namespace Matrix.Wpf
             u.IsEnabled = false;
             b.BadgeBackground = null;
             b.BadgeForeground = null;
+
+            if (totalRegionUpdates == 0) lbiRegions.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF252525");
         }
 
         void SetInitialStates()
@@ -660,6 +673,8 @@ namespace Matrix.Wpf
             //Change user setting and button
             p.InstalledVersion = p.CurrentVersion;
             MarkAsNoUpdatesAvailable(u, b);
+
+            if (p == packages[0]) lbiGlobal.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF252525");
 
 
             //Show success message
