@@ -24,60 +24,31 @@ namespace Matrix.Lib
 
             //Check each package for updates
 
-            UpdateChecker(packages, serverPath);
+            CheckForUpdates(packages, serverPath);
 
             //Return list
             return packages;
         }
-
-        public void CreateAddon(Package p, string installPath, bool manual)
-        {
-            string addonFolder = GetAddonFolder(p);
-
-            Directory.CreateDirectory(addonFolder);
-
-            AddonService addonService = new AddonService();
-
-            if (p.Name == "MAIW Global Libraries")
-            {
-                addonService.WriteGlobalAddonXml(p, addonFolder, installPath);
-            }
-            else
-            {
-                addonService.WriteRegionAddonXml(p, addonFolder, installPath);
-            }
-
-            if (manual)
-            {
-                string xmlFile = addonFolder + "\\add-on.xml";
-                File.Move(xmlFile, Path.ChangeExtension(xmlFile, ".off"));
-            }
-        }
-
 
         public void Uninstall(Package p, string installPath)
         {
             string path = Path.Combine(installPath, p.FolderName);
             if (Directory.Exists(path)) Directory.Delete(path, true);
 
-            string addonFolder = GetAddonFolder(p);
+            AddonService addonService = new AddonService();
+            string addonFolder = addonService.GetAddonFolder(p);
             if (Directory.Exists(addonFolder)) Directory.Delete(addonFolder, true);
         }
 
-        private string GetAddonFolder(Package p)
-        {
-            string myDocs = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            string addonFolder = myDocs + "\\Prepar3D v4 Add-ons\\" + p.Name;
-            return addonFolder;
-        }
+        //Private methods
 
-        private void UpdateChecker(List<Package> packages, string url)
+        private void CheckForUpdates(List<Package> packages, string url)
         {
             XmlDocument xmlDoc = new XmlDocument();
 
             try
             {
-                xmlDoc.Load(url + "/packages/versions2.xml");
+                xmlDoc.Load(url + "/packages/versions.xml");
                 XmlNodeList packageNodes = xmlDoc.SelectNodes("//Packages/Package");
 
                 foreach (XmlNode packageNode in packageNodes)

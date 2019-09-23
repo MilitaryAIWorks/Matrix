@@ -30,13 +30,13 @@
         <Image HorizontalAlignment="Left" Height="50" Margin="30,25,0,0" VerticalAlignment="Top" Width="128" Source="Images/maiw_logo.png"/>
         <ListBox x:Name="lstMenu" HorizontalAlignment="Left" Height="300" Margin="15,90,0,0" VerticalAlignment="Top" Width="160" HorizontalContentAlignment="Center" SelectedIndex="0" Background="{x:Null}" SelectionChanged="lstMenu_SelectionChanged">
             <ListBoxItem Content="HOME" Padding="0,10"/>
-            <ListBoxItem Content="GLOBAL" Padding="0,10"/>
-            <ListBoxItem Content="REGIONS" Padding="0,10"/>
+            <ListBoxItem x:Name="lbiGlobal" Content="GLOBAL" Padding="0,10"/>
+            <ListBoxItem x:Name="lbiRegions" Content="REGIONS" Padding="0,10"/>
             <ListBoxItem Content="CREDITS" Padding="0,10"/>
-            <ListBoxItem Content="SETTINGS" Padding="0,10"/>
+            <ListBoxItem Content="SETTINGS" Padding="0,10" Background="#FF252525"/>
         </ListBox>
         <Button x:Name="btnDonate" Content="Donate" HorizontalAlignment="Left" Margin="30,499,0,0" VerticalAlignment="Top" Width="128" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="btnDonate_Click"/>
-        <Label Content="Version 1.5.0" Margin="15,0,0,40" FontSize="11" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="160" HorizontalContentAlignment="Center"/>
+        <Label Content="Version 1.6.0" Margin="15,0,0,40" FontSize="11" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="160" HorizontalContentAlignment="Center"/>
         <Label Content="© 2018-2019 Military AI Works" Margin="15,0,0,15" FontSize="11" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="160" HorizontalContentAlignment="Center"/>
 
 
