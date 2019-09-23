@@ -48,7 +48,7 @@ namespace Matrix.Lib
 
             try
             {
-                xmlDoc.Load(url + "/packages/versions2.xml");
+                xmlDoc.Load(url + "/packages/versions.xml");
                 XmlNodeList packageNodes = xmlDoc.SelectNodes("//Packages/Package");
 
                 foreach (XmlNode packageNode in packageNodes)

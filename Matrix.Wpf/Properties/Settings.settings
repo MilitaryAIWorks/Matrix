@@ -2,9 +2,6 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Matrix.Wpf.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="ServerPath" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">https://maiw.cloud/matrix</Value>
-    </Setting>
     <Setting Name="InstallPath" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
@@ -58,6 +55,12 @@
     </Setting>
     <Setting Name="UpgradeRequired" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="FileServerPath" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://cdn.militaryaiworks.com/matrix</Value>
+    </Setting>
+    <Setting Name="WebServerPath" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">https://militaryaiworks.com/matrix</Value>
     </Setting>
   </Settings>
 </SettingsFile>

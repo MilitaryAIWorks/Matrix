@@ -32,8 +32,8 @@ namespace Matrix.Wpf
             GetLatestNews();
             GetCredits();
             GetUserSettings();
-            packages = packageService.Create(settings, versions, serverPath);
-            AutoUpdater.Start($"{serverPath}/app/latestVersion.xml");
+            packages = packageService.Create(settings, versions, fileServerPath);
+            AutoUpdater.Start($"{fileServerPath}/app/latestVersion.xml");
         }
 
         #endregion
@@ -42,7 +42,8 @@ namespace Matrix.Wpf
         #region FIELDS
 
         string tempPath = Path.GetTempPath();
-        string serverPath = Properties.Settings.Default.ServerPath;
+        string fileServerPath = Properties.Settings.Default.FileServerPath;
+        string webServerPath = Properties.Settings.Default.WebServerPath;
         string installPath;
         bool manual;
         Dictionary<string, bool> settings = new Dictionary<string, bool>();
@@ -69,7 +70,7 @@ namespace Matrix.Wpf
         void GetLatestNews()
         {
             string fileName = "latestNews.html";
-            string url = $"{serverPath}/html/{fileName}?refreshToken=" + Guid.NewGuid().ToString();
+            string url = $"{webServerPath}/html/{fileName}?refreshToken=" + Guid.NewGuid().ToString();
 
             try
             {
@@ -102,7 +103,7 @@ namespace Matrix.Wpf
         void GetCredits()
         {
             string fileName = "credits.html";
-            string url = $"{serverPath}/html/{fileName}";
+            string url = $"{webServerPath}/html/{fileName}";
 
             try
             {
@@ -230,8 +231,6 @@ namespace Matrix.Wpf
             u.IsEnabled = false;
             b.BadgeBackground = null;
             b.BadgeForeground = null;
-
-            if (totalRegionUpdates == 0) lbiRegions.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF252525");
         }
 
         void SetInitialStates()
@@ -338,7 +337,7 @@ namespace Matrix.Wpf
 
         private async Task DownloadVoicepack(string fileName, string location)
         {
-            string url = $"{serverPath}/packages/{fileName}.zip";
+            string url = $"{fileServerPath}/packages/{fileName}.zip";
 
             client = new WebClient();
             client.DownloadProgressChanged += DownloadProgressChanged;
@@ -347,7 +346,7 @@ namespace Matrix.Wpf
 
         private async Task DownloadFile(string fileName, string location)
         {
-            string url = $"{serverPath}/packages/install/{fileName}.zip";
+            string url = $"{fileServerPath}/packages/install/{fileName}.zip";
             string filePath = Path.Combine(location, fileName) + ".zip";
 
             client = new WebClient();
@@ -357,7 +356,7 @@ namespace Matrix.Wpf
 
         private async Task DownloadUpdate(string fileName, string location)
         {
-            string url = $"{serverPath}/packages/update/{fileName}.zip";
+            string url = $"{fileServerPath}/packages/update/{fileName}.zip";
             string filePath = Path.Combine(location, fileName) + ".zip";
 
             client = new WebClient();
@@ -587,7 +586,7 @@ namespace Matrix.Wpf
                     try
                     {
                         //Download File Removal List
-                        WebRequest request = WebRequest.Create($"{serverPath}/packages/update/{fileName}.txt");
+                        WebRequest request = WebRequest.Create($"{fileServerPath}/packages/update/{fileName}.txt");
                         WebResponse response = await request.GetResponseAsync();
                         List<string> files = new List<string>();
 
@@ -672,9 +671,18 @@ namespace Matrix.Wpf
 
             //Change user setting and button
             p.InstalledVersion = p.CurrentVersion;
+            if (p == packages[0])
+            {
+                lbiGlobal.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF252525");
+            }
+            else
+            {
+                totalRegionUpdates -= p.Updates.Count;
+                if (totalRegionUpdates == 0) lbiRegions.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF252525");
+            }
+
             MarkAsNoUpdatesAvailable(u, b);
 
-            if (p == packages[0]) lbiGlobal.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF252525");
 
 
             //Show success message
@@ -962,37 +970,37 @@ namespace Matrix.Wpf
 
         private void iconReadmeRegionAfrica_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            string url = $"{serverPath}/docs/MAIW-RegionAfrica.pdf";
+            string url = $"{fileServerPath}/docs/MAIW-RegionAfrica.pdf";
             Process.Start(url);
         }
 
         private void iconReadmeRegionAsia_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            string url = $"{serverPath}/docs/MAIW-RegionAsia.pdf";
+            string url = $"{fileServerPath}/docs/MAIW-RegionAsia.pdf";
             Process.Start(url);
         }
 
         private void iconReadmeRegionEurope_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            string url = $"{serverPath}/docs/MAIW-RegionEurope.pdf";
+            string url = $"{fileServerPath}/docs/MAIW-RegionEurope.pdf";
             Process.Start(url);
         }
 
         private void iconReadmeRegionNA_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            string url = $"{serverPath}/docs/MAIW-RegionNA.pdf";
+            string url = $"{fileServerPath}/docs/MAIW-RegionNA.pdf";
             Process.Start(url);
         }
 
         private void iconReadmeRegionOceania_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            string url = $"{serverPath}/docs/MAIW-RegionOceania.pdf";
+            string url = $"{fileServerPath}/docs/MAIW-RegionOceania.pdf";
             Process.Start(url);
         }
 
         private void iconReadmeRegionSA_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            string url = $"{serverPath}/docs/MAIW-RegionSA.pdf";
+            string url = $"{fileServerPath}/docs/MAIW-RegionSA.pdf";
             Process.Start(url);
         }
 
