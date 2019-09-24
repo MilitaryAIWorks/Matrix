@@ -337,7 +337,7 @@ namespace Matrix.Wpf
 
         private async Task DownloadVoicepack(string fileName, string location)
         {
-            string url = $"{fileServerPath}/packages/{fileName}.zip";
+            string url = $"{fileServerPath}/packages/install/{fileName}.zip";
 
             client = new WebClient();
             client.DownloadProgressChanged += DownloadProgressChanged;
