@@ -76,6 +76,8 @@ namespace Matrix.Wpf
             {
                 // Creates an HttpWebRequest.
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                request.Referer = "https://militaryaiworks.com";
+                request.UserAgent = "Matrix";
 
                 // Sends the HttpWebRequest and waits for a response.
                 HttpWebResponse response = (HttpWebResponse)request.GetResponse();
@@ -109,6 +111,8 @@ namespace Matrix.Wpf
             {
                 // Creates an HttpWebRequest.
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                request.Referer = "https://militaryaiworks.com";
+                request.UserAgent = "Matrix";
 
                 // Sends the HttpWebRequest and waits for a response.
                 HttpWebResponse response = (HttpWebResponse)request.GetResponse();
