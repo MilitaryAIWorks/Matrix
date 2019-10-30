@@ -15,7 +15,7 @@ namespace Matrix.Lib
 
         public static async Task DownloadFile(string fileServerPath, string fileName, string filePath, ProgressDialogController progressDialogController)
         {
-            string url = $"{fileServerPath}/packages/{fileName}.zip";
+            string url = $"{fileServerPath}/packages/{fileName}";
             progress = progressDialogController;
 
             using (WebClient client = new WebClient())

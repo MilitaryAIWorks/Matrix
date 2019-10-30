@@ -1,5 +1,4 @@
 ﻿using AutoUpdaterDotNET;
-using Ionic.Zip;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using Matrix.Lib;
@@ -334,39 +333,6 @@ namespace Matrix.Wpf
 
         #endregion
 
-        #region Unzip
-
-        private async Task UnzipFile(string fileName)
-        {
-            string source = Path.Combine(tempPath, fileName) + ".zip";
-
-            await Task.Run(() =>
-            {
-                using (ZipFile zip = new ZipFile(source))
-                {
-                    zip.ExtractProgress += new EventHandler<ExtractProgressEventArgs>(UnzipProgressChanged);
-                    zip.ExtractAll(installPath, ExtractExistingFileAction.OverwriteSilently);
-                }
-            });
-
-            File.Delete(source);
-
-        }
-
-        private void UnzipProgressChanged(object sender, ExtractProgressEventArgs e)
-        {
-            double unpacked = e.EntriesExtracted;
-            double total = e.EntriesTotal;
-
-            if (e.EntriesTotal != 0)
-            {
-                progress.SetProgress(unpacked / total);
-                progress.SetMessage(e.EntriesExtracted.ToString() + " of " + e.EntriesTotal.ToString() + " files");
-            }
-        }
-
-        #endregion
-
         #region Button Clicks
 
         private async Task ClickInstallButton(Package p, Button b)
@@ -389,17 +355,17 @@ namespace Matrix.Wpf
                     {
                         try
                         {
-                            //Create fileName and filePath
-                            string fileName = p.FileName + "_install_" + p.CurrentVersion;
-                            string filePath = Path.Combine(tempPath, fileName) + ".zip";
-
                             if (p.Parts > 1)
                             {
                                 for (int i = 1; i <= p.Parts; i++)
                                 {
+                                    //Generate fileName
+                                    string fileName = $"{ p.FileName}_install_{p.CurrentVersion}_part{i}.7z";
+                                    string filePath = Path.Combine(tempPath, fileName);
+
                                     //Download Part i
                                     progress.SetTitle($"Downloading Part {i} of {p.Parts}...");
-                                    await DownloadService.DownloadFile(fileServerPath, fileName + $"_part{i}", tempPath, progress);
+                                    await DownloadService.DownloadFile(fileServerPath, fileName, filePath, progress);
                                     progress.SetMessage("Done!");
 
                                     //Short pause
@@ -407,10 +373,10 @@ namespace Matrix.Wpf
 
                                     //Unzip Part i
                                     progress.SetTitle($"Unpacking Part {i} of {p.Parts}...");
-                                    progress.SetMessage("");
+                                    progress.SetMessage("0% unpacked");
                                     progress.SetIndeterminate();
                                     progress.SetCancelable(false);
-                                    await UnzipFile(fileName + $"_part{i}");
+                                    await ZipService.UnzipFile(Path.Combine(tempPath, fileName), installPath, progress);
                                     progress.SetMessage("Done!");
 
                                     //Short pause
@@ -419,6 +385,10 @@ namespace Matrix.Wpf
                             }
                             else
                             {
+                                //Generate fileName
+                                string fileName = $"{ p.FileName}_install_{p.CurrentVersion}.7z";
+                                string filePath = Path.Combine(tempPath, fileName);
+
                                 //Download Package
                                 await DownloadService.DownloadFile(fileServerPath, fileName, filePath, progress);
                                 progress.SetMessage("Done!");
@@ -428,10 +398,10 @@ namespace Matrix.Wpf
 
                                 //Unzip Package
                                 progress.SetTitle("Unpacking...");
-                                progress.SetMessage("");
+                                progress.SetMessage("0% unpacked");
                                 progress.SetIndeterminate();
                                 progress.SetCancelable(false);
-                                await UnzipFile(fileName);
+                                await ZipService.UnzipFile(Path.Combine(tempPath, fileName), installPath, progress);
                                 progress.SetMessage("Done!");
                             }
 
@@ -534,13 +504,12 @@ namespace Matrix.Wpf
 
                 if (!progress.IsCanceled)
                 {
-                    string fileName = p.FileName + "_update_" + update;
-                    string filePath = Path.Combine(tempPath, fileName) + ".zip";
+                    string fileName = $"{p.FileName}_update_{update}.7z";
 
                     try
                     {
                         //Download File Removal List
-                        WebRequest request = WebRequest.Create($"{fileServerPath}/packages/txt/{fileName}.txt");
+                        WebRequest request = WebRequest.Create($"{fileServerPath}/packages/txt/{p.FileName}_update_{update}.txt");
                         WebResponse response = await request.GetResponseAsync();
                         List<string> files = new List<string>();
 
@@ -577,7 +546,7 @@ namespace Matrix.Wpf
                         progress.SetTitle("Downloading update...");
                         progress.SetMessage("");
                         progress.SetIndeterminate();
-                        await DownloadService.DownloadFile(fileServerPath, fileName, filePath, progress);
+                        await DownloadService.DownloadFile(fileServerPath, fileName, tempPath, progress);
                         progress.SetMessage("Done!");
 
                         //Short pause
@@ -585,10 +554,10 @@ namespace Matrix.Wpf
 
                         //Unzip Update
                         progress.SetTitle("Unpacking update...");
-                        progress.SetMessage("");
+                        progress.SetMessage("0% unpacked");
                         progress.SetIndeterminate();
                         progress.SetCancelable(false);
-                        await UnzipFile(fileName);
+                        await ZipService.UnzipFile(Path.Combine(tempPath, fileName), installPath, progress);
                         progress.SetMessage("Done!");
 
                         //Short pause
@@ -713,7 +682,7 @@ namespace Matrix.Wpf
         private async void btnDownloadGlobalVoicepack_Click(object sender, RoutedEventArgs e)
         {
 
-            string fileName = packages[1].FileName;
+            string fileName = $"{packages[1].FileName}.zip";
 
             SaveFileDialog dlg = new SaveFileDialog();
             dlg.Title = "Save the Global MAIW Voicepack";
