@@ -1,24 +1,16 @@
 ﻿using System.Collections.Generic;
 
-namespace Matrix.Lib
+namespace Matrix.Lib.Models
 {
     public class Package
     {
-
         public string Name { get; }
-
         public string FileName { get; }
-
         public string FolderName { get; set; }
-
         public bool IsInstalled { get; set; }
-
         public string InstalledVersion { get; set; }    
-
         public string CurrentVersion { get; set; }
-
         public int Parts { get; set; }
-
         public List<string> Updates { get; set; }
 
         public Package(string name, string fileName, string folderName, bool isInstalled, string version)

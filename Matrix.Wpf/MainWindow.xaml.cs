@@ -1,7 +1,8 @@
 ﻿using AutoUpdaterDotNET;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
-using Matrix.Lib;
+using Matrix.Lib.Models;
+using Matrix.Lib.Services;
 using Microsoft.Win32;
 using NLog;
 using System;

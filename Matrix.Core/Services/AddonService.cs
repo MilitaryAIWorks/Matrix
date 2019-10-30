@@ -1,8 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Xml;
+using Matrix.Lib.Models;
 
-namespace Matrix.Lib
+namespace Matrix.Lib.Services
 {
     public static class AddonService
     {

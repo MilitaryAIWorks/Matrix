@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Matrix.Lib.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 
-namespace Matrix.Lib
+namespace Matrix.Lib.Services
 {
     public static class PackageService
     {

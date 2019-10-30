@@ -55,12 +55,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddonService.cs" />
-    <Compile Include="DownloadService.cs" />
-    <Compile Include="Package.cs" />
-    <Compile Include="PackageService.cs" />
+    <Compile Include="Services\AddonService.cs" />
+    <Compile Include="Services\DownloadService.cs" />
+    <Compile Include="Models\Package.cs" />
+    <Compile Include="Services\PackageService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ZipService.cs" />
+    <Compile Include="Services\ZipService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

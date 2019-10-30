@@ -8,7 +8,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Matrix.Lib
+namespace Matrix.Lib.Services
 {
     public static class ZipService
     {
