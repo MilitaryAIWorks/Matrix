@@ -49,7 +49,6 @@ namespace Matrix.Wpf
         Dictionary<string, bool> settings = new Dictionary<string, bool>();
         Dictionary<string, string> versions = new Dictionary<string, string>();
         List<Package> packages;
-        WebClient client;
         ProgressDialogController progress;
         MessageDialogResult messageResult;
         MessageDialogResult licenseResult;
@@ -335,55 +334,6 @@ namespace Matrix.Wpf
 
         #endregion
 
-        #region Download
-
-        private async Task DownloadVoicepack(string fileName, string location)
-        {
-            string url = $"{fileServerPath}/packages/install/{fileName}.zip";
-
-            client = new WebClient();
-            client.DownloadProgressChanged += DownloadProgressChanged;
-            await client.DownloadFileTaskAsync(new Uri(url), location);
-        }
-
-        private async Task DownloadFile(string fileName, string location)
-        {
-            string url = $"{fileServerPath}/packages/install/{fileName}.zip";
-            string filePath = Path.Combine(location, fileName) + ".zip";
-
-            client = new WebClient();
-            client.DownloadProgressChanged += DownloadProgressChanged;
-            await client.DownloadFileTaskAsync(new Uri(url), filePath);
-        }
-
-        private async Task DownloadUpdate(string fileName, string location)
-        {
-            string url = $"{fileServerPath}/packages/update/{fileName}.zip";
-            string filePath = Path.Combine(location, fileName) + ".zip";
-
-            client = new WebClient();
-            client.DownloadProgressChanged += DownloadProgressChanged;
-            await client.DownloadFileTaskAsync(new Uri(url), filePath);
-        }
-
-        private void DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
-        {
-            string received = ((double)e.BytesReceived / 1048576).ToString("0.0");
-            string total = ((double)e.TotalBytesToReceive / 1048576).ToString("0.0");
-
-            if (progress.IsCanceled)
-            {
-                client.CancelAsync();
-            }
-            else
-            {
-                progress.SetProgress((double)e.ProgressPercentage / 100);
-                progress.SetMessage($"{received} MB of {total} MB");
-            }
-        }
-
-        #endregion
-
         #region Unzip
 
         private async Task UnzipFile(string fileName)
@@ -439,8 +389,9 @@ namespace Matrix.Wpf
                     {
                         try
                         {
-                            //Create filename
-                            string filename = p.FileName + "_install_" + p.CurrentVersion;
+                            //Create fileName and filePath
+                            string fileName = p.FileName + "_install_" + p.CurrentVersion;
+                            string filePath = Path.Combine(tempPath, fileName) + ".zip";
 
                             if (p.Parts > 1)
                             {
@@ -448,7 +399,7 @@ namespace Matrix.Wpf
                                 {
                                     //Download Part i
                                     progress.SetTitle($"Downloading Part {i} of {p.Parts}...");
-                                    await DownloadFile(filename + $"_part{i}", tempPath);
+                                    await DownloadService.DownloadFile(fileServerPath, fileName + $"_part{i}", tempPath, progress);
                                     progress.SetMessage("Done!");
 
                                     //Short pause
@@ -459,7 +410,7 @@ namespace Matrix.Wpf
                                     progress.SetMessage("");
                                     progress.SetIndeterminate();
                                     progress.SetCancelable(false);
-                                    await UnzipFile(filename + $"_part{i}");
+                                    await UnzipFile(fileName + $"_part{i}");
                                     progress.SetMessage("Done!");
 
                                     //Short pause
@@ -469,7 +420,7 @@ namespace Matrix.Wpf
                             else
                             {
                                 //Download Package
-                                await DownloadFile(filename, tempPath);
+                                await DownloadService.DownloadFile(fileServerPath, fileName, filePath, progress);
                                 progress.SetMessage("Done!");
 
                                 //Short pause
@@ -480,7 +431,7 @@ namespace Matrix.Wpf
                                 progress.SetMessage("");
                                 progress.SetIndeterminate();
                                 progress.SetCancelable(false);
-                                await UnzipFile(filename);
+                                await UnzipFile(fileName);
                                 progress.SetMessage("Done!");
                             }
 
@@ -584,11 +535,12 @@ namespace Matrix.Wpf
                 if (!progress.IsCanceled)
                 {
                     string fileName = p.FileName + "_update_" + update;
+                    string filePath = Path.Combine(tempPath, fileName) + ".zip";
 
                     try
                     {
                         //Download File Removal List
-                        WebRequest request = WebRequest.Create($"{fileServerPath}/packages/update/{fileName}.txt");
+                        WebRequest request = WebRequest.Create($"{fileServerPath}/packages/txt/{fileName}.txt");
                         WebResponse response = await request.GetResponseAsync();
                         List<string> files = new List<string>();
 
@@ -625,7 +577,7 @@ namespace Matrix.Wpf
                         progress.SetTitle("Downloading update...");
                         progress.SetMessage("");
                         progress.SetIndeterminate();
-                        await DownloadUpdate(fileName, tempPath);
+                        await DownloadService.DownloadFile(fileServerPath, fileName, filePath, progress);
                         progress.SetMessage("Done!");
 
                         //Short pause
@@ -778,7 +730,7 @@ namespace Matrix.Wpf
                 {
                     try
                     {
-                        await DownloadVoicepack(fileName, dlg.FileName);
+                        await DownloadService.DownloadFile(fileServerPath, fileName, dlg.FileName, progress);
                     }
                     catch (WebException we)
                     {
