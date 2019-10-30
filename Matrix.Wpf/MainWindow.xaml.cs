@@ -32,7 +32,7 @@ namespace Matrix.Wpf
             GetLatestNews();
             GetCredits();
             GetUserSettings();
-            packages = packageService.Create(settings, versions, fileServerPath);
+            packages = PackageService.Create(settings, versions, fileServerPath);
             AutoUpdater.Start($"{fileServerPath}/app/latestVersion.xml");
         }
 
@@ -48,8 +48,6 @@ namespace Matrix.Wpf
         bool manual;
         Dictionary<string, bool> settings = new Dictionary<string, bool>();
         Dictionary<string, string> versions = new Dictionary<string, string>();
-        AddonService addonService = new AddonService();
-        PackageService packageService = new PackageService();
         List<Package> packages;
         WebClient client;
         ProgressDialogController progress;
@@ -493,7 +491,7 @@ namespace Matrix.Wpf
                             progress.SetTitle("Creating Add-on...");
                             progress.SetMessage("");
                             progress.SetProgress(0);
-                            addonService.CreateAddon(p, installPath, manual);
+                            AddonService.CreateAddon(p, installPath, manual);
                             await Task.Delay(1500);
                             progress.SetMessage("Done!");
                             progress.SetProgress(1);
@@ -554,7 +552,7 @@ namespace Matrix.Wpf
                 //Uninstall
                 try
                 {
-                    packageService.Uninstall(p, installPath);
+                    PackageService.Uninstall(p, installPath);
                 }
                 catch (Exception ex)
                 {

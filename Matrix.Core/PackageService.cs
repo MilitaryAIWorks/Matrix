@@ -5,9 +5,9 @@ using System.Xml;
 
 namespace Matrix.Lib
 {
-    public class PackageService
+    public static class PackageService
     {
-        public List<Package> Create(Dictionary<string, bool> settings, Dictionary<string, string> versions, string serverPath)
+        public static List<Package> Create(Dictionary<string, bool> settings, Dictionary<string, string> versions, string serverPath)
         {
             //Create packages list
             List<Package> packages = new List<Package>
@@ -30,19 +30,18 @@ namespace Matrix.Lib
             return packages;
         }
 
-        public void Uninstall(Package p, string installPath)
+        public static void Uninstall(Package p, string installPath)
         {
             string path = Path.Combine(installPath, p.FolderName);
             if (Directory.Exists(path)) Directory.Delete(path, true);
 
-            AddonService addonService = new AddonService();
-            string addonFolder = addonService.GetAddonFolder(p);
+            string addonFolder = AddonService.GetAddonFolder(p);
             if (Directory.Exists(addonFolder)) Directory.Delete(addonFolder, true);
         }
 
         //Private methods
 
-        private void CheckForUpdates(List<Package> packages, string url)
+        private static void CheckForUpdates(List<Package> packages, string url)
         {
             XmlDocument xmlDoc = new XmlDocument();
 
