@@ -10,7 +10,6 @@ namespace Matrix.Lib.Models
         public bool IsInstalled { get; set; }
         public string InstalledVersion { get; set; }    
         public string CurrentVersion { get; set; }
-        public int Parts { get; set; }
         public List<string> Updates { get; set; }
 
         public Package(string name, string fileName, string folderName, bool isInstalled, string version)

@@ -358,55 +358,24 @@ namespace Matrix.Wpf
                     {
                         try
                         {
-                            if (p.Parts > 1)
-                            {
-                                for (int i = 1; i <= p.Parts; i++)
-                                {
-                                    //Generate fileName
-                                    string fileName = $"{ p.FileName}_install_{p.CurrentVersion}_part{i}.7z";
-                                    string filePath = Path.Combine(tempPath, fileName);
+                            //Generate fileName
+                            string fileName = $"{ p.FileName}_install_{p.CurrentVersion}.7z";
+                            string filePath = Path.Combine(tempPath, fileName);
 
-                                    //Download Part i
-                                    progress.SetTitle($"Downloading Part {i} of {p.Parts}...");
-                                    await DownloadService.DownloadFile(fileServerPath, fileName, filePath, progress);
-                                    progress.SetMessage("Done!");
+                            //Download Package
+                            await DownloadService.DownloadFile(fileServerPath, fileName, filePath, progress);
+                            progress.SetMessage("Done!");
 
-                                    //Short pause
-                                    await Task.Delay(1500);
+                            //Short pause
+                            await Task.Delay(1500);
 
-                                    //Unzip Part i
-                                    progress.SetTitle($"Unpacking Part {i} of {p.Parts}...");
-                                    progress.SetMessage("0% unpacked");
-                                    progress.SetIndeterminate();
-                                    progress.SetCancelable(false);
-                                    await ZipService.UnzipFile(Path.Combine(tempPath, fileName), installPath, progress);
-                                    progress.SetMessage("Done!");
-
-                                    //Short pause
-                                    if (i < p.Parts) await Task.Delay(1500);
-                                }
-                            }
-                            else
-                            {
-                                //Generate fileName
-                                string fileName = $"{ p.FileName}_install_{p.CurrentVersion}.7z";
-                                string filePath = Path.Combine(tempPath, fileName);
-
-                                //Download Package
-                                await DownloadService.DownloadFile(fileServerPath, fileName, filePath, progress);
-                                progress.SetMessage("Done!");
-
-                                //Short pause
-                                await Task.Delay(1500);
-
-                                //Unzip Package
-                                progress.SetTitle("Unpacking...");
-                                progress.SetMessage("0% unpacked");
-                                progress.SetIndeterminate();
-                                progress.SetCancelable(false);
-                                await ZipService.UnzipFile(Path.Combine(tempPath, fileName), installPath, progress);
-                                progress.SetMessage("Done!");
-                            }
+                            //Unzip Package
+                            progress.SetTitle("Unpacking...");
+                            progress.SetMessage("0% unpacked");
+                            progress.SetIndeterminate();
+                            progress.SetCancelable(false);
+                            await ZipService.UnzipFile(Path.Combine(tempPath, fileName), installPath, progress);
+                            progress.SetMessage("Done!");
 
                             //Short pause
                             await Task.Delay(1500);
