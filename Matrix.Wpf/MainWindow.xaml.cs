@@ -49,7 +49,6 @@ namespace Matrix.Wpf
         Dictionary<string, bool> settings = new Dictionary<string, bool>();
         Dictionary<string, string> versions = new Dictionary<string, string>();
         List<Package> packages;
-        ProgressDialogController progress;
         MessageDialogResult messageResult;
         MessageDialogResult licenseResult;
         string sceneryPath;
@@ -314,20 +313,23 @@ namespace Matrix.Wpf
         {
             await this.ShowMessageAsync("Settings", "Please select where you want Matrix to install your military AI traffic.");
 
-            WinForms.FolderBrowserDialog dlg = new WinForms.FolderBrowserDialog();
-            dlg.Description = "Please select the folder where you want Matrix to install your military AI traffic.";
-
-            WinForms.DialogResult result = dlg.ShowDialog();
-            if (result == WinForms.DialogResult.OK)
+            using (WinForms.FolderBrowserDialog dlg = new WinForms.FolderBrowserDialog
             {
-                if (Directory.Exists(dlg.SelectedPath))
+                Description = "Please select the folder where you want Matrix to install your military AI traffic."
+            })
+            {
+                WinForms.DialogResult result = dlg.ShowDialog();
+                if (result == WinForms.DialogResult.OK)
                 {
-                    installPath = Path.Combine(dlg.SelectedPath, "Military AI Works\\");
-                    txtInstallationFolder.Text = installPath;
-                }
-                else
-                {
-                    await this.ShowMessageAsync("Error", "There was a problem with the selected folder, or access to the folder was denied.");
+                    if (Directory.Exists(dlg.SelectedPath))
+                    {
+                        installPath = Path.Combine(dlg.SelectedPath, "Military AI Works\\");
+                        txtInstallationFolder.Text = installPath;
+                    }
+                    else
+                    {
+                        await this.ShowMessageAsync("Error", "There was a problem with the selected folder, or access to the folder was denied.");
+                    }
                 }
             }
         }
@@ -349,7 +351,7 @@ namespace Matrix.Wpf
                 if (licenseResult == MessageDialogResult.Affirmative)
                 {
                     //Show async progress message
-                    progress = await this.ShowProgressAsync("Downloading...", "", true);
+                    var progress = await this.ShowProgressAsync("Downloading...", "", true);
                     progress.SetIndeterminate();
 
                     if (!progress.IsCanceled)
@@ -500,7 +502,7 @@ namespace Matrix.Wpf
             foreach (string update in p.Updates)
             {
                 //Show async progress message
-                progress = await this.ShowProgressAsync("Preparing update to version " + update + "...", "", true);
+                var progress = await this.ShowProgressAsync("Preparing update to version " + update + "...", "", true);
                 progress.SetIndeterminate();
 
                 if (!progress.IsCanceled)
@@ -685,15 +687,17 @@ namespace Matrix.Wpf
 
             string fileName = $"{packages[1].FileName}.zip";
 
-            SaveFileDialog dlg = new SaveFileDialog();
-            dlg.Title = "Save the Global MAIW Voicepack";
-            dlg.FileName = fileName;
-            dlg.Filter = "Zip file (*.zip)|*.zip";
+            SaveFileDialog dlg = new SaveFileDialog
+            {
+                Title = "Save the Global MAIW Voicepack",
+                FileName = fileName,
+                Filter = "Zip file (*.zip)|*.zip"
+            };
 
 
             if (dlg.ShowDialog() == true)
             {
-                progress = await this.ShowProgressAsync("Downloading...", "", true);
+                var progress = await this.ShowProgressAsync("Downloading...", "", true);
                 progress.SetIndeterminate();
 
                 if (!progress.IsCanceled)
