@@ -13,6 +13,7 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using WinForms = System.Windows.Forms;
 
@@ -64,6 +65,109 @@ namespace Matrix.Wpf
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
             SetInitialStates();
+        }
+
+        private async void InstallButton_Click(object sender, RoutedEventArgs e)
+        {
+            string tag = ((Button)sender).Tag.ToString();
+            int packageNumber = 0;
+
+            if (tag == "GL")
+            {
+                //Check if any regions are installed before uninstalling the global package
+                bool regionsInstalled = false;
+                for (int i = 2; i < packages.Count; i++)
+                {
+                    if (packages[i].IsInstalled) regionsInstalled = true;
+                }
+
+                if (regionsInstalled)
+                {
+                    await this.ShowMessageAsync("Error", "You still have regions installed that depend on the Global MAIW Libraries.");
+                    return;
+                }
+                else await InstallPackage(packages[0], "GL");
+            }
+            else
+            {
+                switch (tag)
+                {
+                    case "AF":
+                        packageNumber = 2;
+                        break;
+                    case "AS":
+                        packageNumber = 3;
+                        break;
+                    case "EU":
+                        packageNumber = 4;
+                        break;
+                    case "NA":
+                        packageNumber = 5;
+                        break;
+                    case "OC":
+                        packageNumber = 6;
+                        break;
+                    case "SA":
+                        packageNumber = 7;
+                        break;
+                    default:
+                        break;
+                }
+
+                if (packages[0].IsInstalled) await InstallPackage(packages[packageNumber], tag);
+                else
+                {
+                    await ShowMessageMissingLibs();
+
+                    if (messageResult == MessageDialogResult.Affirmative)
+                    {
+                        await InstallPackage(packages[0], "GL");
+                        await InstallPackage(packages[packageNumber], tag);
+                    }
+                    else return;
+                }
+
+            }
+
+            MarkAsNoUpdatesAvailable(tag);
+        }
+
+        private async void UpdateButton_Click(object sender, RoutedEventArgs e)
+        {
+            string tag = ((Button)sender).Tag.ToString();
+            int packageNumber = 0;
+            switch (tag)
+            {
+                case "AF":
+                    packageNumber = 2;
+                    break;
+                case "AS":
+                    packageNumber = 3;
+                    break;
+                case "EU":
+                    packageNumber = 4;
+                    break;
+                case "NA":
+                    packageNumber = 5;
+                    break;
+                case "OC":
+                    packageNumber = 6;
+                    break;
+                case "SA":
+                    packageNumber = 7;
+                    break;
+                default:
+                    break;
+            }
+
+            await UpdatePackage(packages[packageNumber], tag);
+        }
+
+        private void IconReadme_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            string tag = ((MahApps.Metro.IconPacks.PackIconModern)sender).Tag.ToString();
+            string url = $"{fileServerPath}/docs/Matrix-Region{tag}.pdf";
+            Process.Start(url);
         }
 
         private void lstMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -151,204 +255,6 @@ namespace Matrix.Wpf
                 await progress.CloseAsync();
                 await this.ShowMessageAsync("Success!", "The Global MAIW Voicepack was downloaded succesfully.\nYou will need to unzip the files and import them into EVP manually.");
             }
-        }
-
-        private async void btnInstallGlobalLibraries_Click(object sender, RoutedEventArgs e)
-        {
-            //Check if any regions are installed before uninstalling the global package
-            bool regionsInstalled = false;
-            for (int i = 2; i < packages.Count; i++)
-            {
-                if (packages[i].IsInstalled) regionsInstalled = true;
-            }
-
-            if (regionsInstalled)
-            {
-                await this.ShowMessageAsync("Error", "You still have regions installed that depend on the Global MAIW Libraries.");
-                return;
-            }
-            else await ClickInstallButton(packages[0], (Button)sender);
-
-            MarkAsNoUpdatesAvailable(btnUpdateGlobalLibraries, bdgGlobalLibraries);
-        }
-
-        private async void btnUpdateGlobalLibraries_Click(object sender, RoutedEventArgs e)
-        {
-            await ClickUpdateButton(packages[0], btnUpdateGlobalLibraries, bdgGlobalLibraries);
-        }
-
-        private async void btnInstallRegionAfrica_Click(object sender, RoutedEventArgs e)
-        {
-            if (packages[0].IsInstalled) await ClickInstallButton(packages[2], (Button)sender);
-            else
-            {
-                await ShowMessageMissingLibs();
-
-                if (messageResult == MessageDialogResult.Affirmative)
-                {
-                    await ClickInstallButton(packages[0], btnInstallGlobalLibraries);
-                    await ClickInstallButton(packages[2], (Button)sender);
-                }
-                else return;
-            }
-
-            MarkAsNoUpdatesAvailable(btnUpdateRegionAfrica, bdgRegionAfrica);
-        }
-
-        private async void btnUpdateRegionAfrica_Click(object sender, RoutedEventArgs e)
-        {
-            await ClickUpdateButton(packages[2], btnUpdateRegionAfrica, bdgRegionAfrica);
-        }
-
-        private async void btnInstallRegionAsia_Click(object sender, RoutedEventArgs e)
-        {
-            if (packages[0].IsInstalled) await ClickInstallButton(packages[3], (Button)sender);
-            else
-            {
-                await ShowMessageMissingLibs();
-
-                if (messageResult == MessageDialogResult.Affirmative)
-                {
-                    await ClickInstallButton(packages[0], btnInstallGlobalLibraries);
-                    await ClickInstallButton(packages[3], (Button)sender);
-                }
-                else return;
-            }
-
-            MarkAsNoUpdatesAvailable(btnUpdateRegionAsia, bdgRegionAsia);
-        }
-
-        private async void btnUpdateRegionAsia_Click(object sender, RoutedEventArgs e)
-        {
-            await ClickUpdateButton(packages[3], btnUpdateRegionAsia, bdgRegionAsia);
-        }
-
-        private async void btnInstallRegionEurope_Click(object sender, RoutedEventArgs e)
-        {
-            if (packages[0].IsInstalled) await ClickInstallButton(packages[4], (Button)sender);
-            else
-            {
-                await ShowMessageMissingLibs();
-
-                if (messageResult == MessageDialogResult.Affirmative)
-                {
-                    await ClickInstallButton(packages[0], btnInstallGlobalLibraries);
-                    await ClickInstallButton(packages[4], (Button)sender);
-                }
-                else return;
-            }
-
-            MarkAsNoUpdatesAvailable(btnUpdateRegionEurope, bdgRegionEurope);
-        }
-
-        private async void btnUpdateRegionEurope_Click(object sender, RoutedEventArgs e)
-        {
-            await ClickUpdateButton(packages[4], btnUpdateRegionEurope, bdgRegionEurope);
-        }
-
-        private async void btnInstallRegionNA_Click(object sender, RoutedEventArgs e)
-        {
-            if (packages[0].IsInstalled) await ClickInstallButton(packages[5], (Button)sender);
-            else
-            {
-                await ShowMessageMissingLibs();
-
-                if (messageResult == MessageDialogResult.Affirmative)
-                {
-                    await ClickInstallButton(packages[0], btnInstallGlobalLibraries);
-                    await ClickInstallButton(packages[5], (Button)sender);
-                }
-                else return;
-            }
-
-            MarkAsNoUpdatesAvailable(btnUpdateRegionNA, bdgRegionNA);
-        }
-
-        private async void btnUpdateRegionNA_Click(object sender, RoutedEventArgs e)
-        {
-            await ClickUpdateButton(packages[5], btnUpdateRegionNA, bdgRegionNA);
-        }
-
-        private async void btnInstallRegionOceania_Click(object sender, RoutedEventArgs e)
-        {
-            if (packages[0].IsInstalled) await ClickInstallButton(packages[6], (Button)sender);
-            else
-            {
-                await ShowMessageMissingLibs();
-
-                if (messageResult == MessageDialogResult.Affirmative)
-                {
-                    await ClickInstallButton(packages[0], btnInstallGlobalLibraries);
-                    await ClickInstallButton(packages[6], (Button)sender);
-                }
-                else return;
-            }
-
-            MarkAsNoUpdatesAvailable(btnUpdateRegionOceania, bdgRegionOceania);
-        }
-
-        private async void btnUpdateRegionOceania_Click(object sender, RoutedEventArgs e)
-        {
-            await ClickUpdateButton(packages[6], btnUpdateRegionOceania, bdgRegionOceania);
-        }
-
-        private async void btnInstallRegionSA_Click(object sender, RoutedEventArgs e)
-        {
-            if (packages[0].IsInstalled) await ClickInstallButton(packages[7], (Button)sender);
-            else
-            {
-                await ShowMessageMissingLibs();
-
-                if (messageResult == MessageDialogResult.Affirmative)
-                {
-                    await ClickInstallButton(packages[0], btnInstallGlobalLibraries);
-                    await ClickInstallButton(packages[7], (Button)sender);
-                }
-                else return;
-            }
-
-            MarkAsNoUpdatesAvailable(btnUpdateRegionSA, bdgRegionSA);
-        }
-
-        private async void btnUpdateRegionSA_Click(object sender, RoutedEventArgs e)
-        {
-            await ClickUpdateButton(packages[7], btnUpdateRegionSA, bdgRegionSA);
-        }
-
-        private void iconReadmeRegionAfrica_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            string url = $"{fileServerPath}/docs/MAIW-RegionAfrica.pdf";
-            Process.Start(url);
-        }
-
-        private void iconReadmeRegionAsia_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            string url = $"{fileServerPath}/docs/MAIW-RegionAsia.pdf";
-            Process.Start(url);
-        }
-
-        private void iconReadmeRegionEurope_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            string url = $"{fileServerPath}/docs/MAIW-RegionEurope.pdf";
-            Process.Start(url);
-        }
-
-        private void iconReadmeRegionNA_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            string url = $"{fileServerPath}/docs/MAIW-RegionNA.pdf";
-            Process.Start(url);
-        }
-
-        private void iconReadmeRegionOceania_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            string url = $"{fileServerPath}/docs/MAIW-RegionOceania.pdf";
-            Process.Start(url);
-        }
-
-        private void iconReadmeRegionSA_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            string url = $"{fileServerPath}/docs/MAIW-RegionSA.pdf";
-            Process.Start(url);
         }
 
         private async void btnChangeInstallPath_Click(object sender, RoutedEventArgs e)
@@ -565,23 +471,28 @@ namespace Matrix.Wpf
 
         #endregion
 
-        #region Initial States
+        #region UI States
 
-        private void MarkAsInstalled(Button b)
+        private void MarkAsInstalled(string tag)
         {
+            var b = (Button)this.FindName($"btnInstall{tag}");
             b.Content = "UNINSTALL";
             b.BorderBrush = Brushes.Green;
         }
 
-        private void MarkAsUninstalled(Button b)
+        private void MarkAsUninstalled(string tag)
         {
-            b.Content = "INSTALL";
-            b.ClearValue(BorderBrushProperty);
+            var i = (Button)this.FindName($"btnInstall{tag}");
+            i.Content = "INSTALL";
+            i.ClearValue(BorderBrushProperty);
         }
 
-        private void MarkAsUpdatesAvailable(Button u, Badged b, Package p)
+        private void MarkAsUpdatesAvailable(string tag, Package p)
         {
+            var u = (Button)this.FindName($"btnUpdate{tag}");
             u.IsEnabled = true;
+
+            var b = (Badged)this.FindName($"bdg{tag}");
             b.Badge = p.Updates.Count;
 
             if (p == packages[0])
@@ -595,9 +506,12 @@ namespace Matrix.Wpf
             }
         }
 
-        private void MarkAsNoUpdatesAvailable(Button u, Badged b)
+        private void MarkAsNoUpdatesAvailable(string tag)
         {
+            var u = (Button)this.FindName($"btnUpdate{tag}");
             u.IsEnabled = false;
+
+            var b = (Badged)this.FindName($"bdg{tag}");
             b.BadgeBackground = null;
             b.BadgeForeground = null;
         }
@@ -606,52 +520,52 @@ namespace Matrix.Wpf
         {
             //Set install buttons and add regions to cmbRegionPicker
 
-            if (packages[0].IsInstalled) MarkAsInstalled(btnInstallGlobalLibraries);
+            if (packages[0].IsInstalled) MarkAsInstalled("GL");
 
             if (packages[2].IsInstalled)
             {
-                MarkAsInstalled(btnInstallRegionAfrica);
+                MarkAsInstalled("AF");
                 cmbRegionPicker.Items.Add(packages[2]);
             }
 
             if (packages[3].IsInstalled)
             {
-                MarkAsInstalled(btnInstallRegionAsia);
+                MarkAsInstalled("AS");
                 cmbRegionPicker.Items.Add(packages[3]);
             }
 
             if (packages[4].IsInstalled)
             {
-                MarkAsInstalled(btnInstallRegionEurope);
+                MarkAsInstalled("EU");
                 cmbRegionPicker.Items.Add(packages[4]);
             }
 
             if (packages[5].IsInstalled)
             {
-                MarkAsInstalled(btnInstallRegionNA);
+                MarkAsInstalled("NA");
                 cmbRegionPicker.Items.Add(packages[5]);
             }
 
             if (packages[6].IsInstalled)
             {
-                MarkAsInstalled(btnInstallRegionOceania);
+                MarkAsInstalled("OC");
                 cmbRegionPicker.Items.Add(packages[6]);
             }
 
             if (packages[7].IsInstalled)
             {
-                MarkAsInstalled(btnInstallRegionSA);
+                MarkAsInstalled("SA");
                 cmbRegionPicker.Items.Add(packages[7]);
             }
 
             //Set update buttons
-            if (packages[0].IsInstalled && packages[0].Updates.Count != 0) MarkAsUpdatesAvailable(btnUpdateGlobalLibraries, bdgGlobalLibraries, packages[0]); else MarkAsNoUpdatesAvailable(btnUpdateGlobalLibraries, bdgGlobalLibraries);
-            if (packages[2].IsInstalled && packages[2].Updates.Count != 0) MarkAsUpdatesAvailable(btnUpdateRegionAfrica, bdgRegionAfrica, packages[2]); else MarkAsNoUpdatesAvailable(btnUpdateRegionAfrica, bdgRegionAfrica);
-            if (packages[3].IsInstalled && packages[3].Updates.Count != 0) MarkAsUpdatesAvailable(btnUpdateRegionAsia, bdgRegionAsia, packages[3]); else MarkAsNoUpdatesAvailable(btnUpdateRegionAsia, bdgRegionAsia);
-            if (packages[4].IsInstalled && packages[4].Updates.Count != 0) MarkAsUpdatesAvailable(btnUpdateRegionEurope, bdgRegionEurope, packages[4]); else MarkAsNoUpdatesAvailable(btnUpdateRegionEurope, bdgRegionEurope);
-            if (packages[5].IsInstalled && packages[5].Updates.Count != 0) MarkAsUpdatesAvailable(btnUpdateRegionNA, bdgRegionNA, packages[5]); else MarkAsNoUpdatesAvailable(btnUpdateRegionNA, bdgRegionNA);
-            if (packages[6].IsInstalled && packages[6].Updates.Count != 0) MarkAsUpdatesAvailable(btnUpdateRegionOceania, bdgRegionOceania, packages[6]); else MarkAsNoUpdatesAvailable(btnUpdateRegionOceania, bdgRegionOceania);
-            if (packages[7].IsInstalled && packages[7].Updates.Count != 0) MarkAsUpdatesAvailable(btnUpdateRegionSA, bdgRegionSA, packages[7]); else MarkAsNoUpdatesAvailable(btnUpdateRegionSA, bdgRegionSA);
+            if (packages[0].IsInstalled && packages[0].Updates.Count != 0) MarkAsUpdatesAvailable("GL", packages[0]); else MarkAsNoUpdatesAvailable("GL");
+            if (packages[2].IsInstalled && packages[2].Updates.Count != 0) MarkAsUpdatesAvailable("AF", packages[2]); else MarkAsNoUpdatesAvailable("AF");
+            if (packages[3].IsInstalled && packages[3].Updates.Count != 0) MarkAsUpdatesAvailable("AS", packages[3]); else MarkAsNoUpdatesAvailable("AS");
+            if (packages[4].IsInstalled && packages[4].Updates.Count != 0) MarkAsUpdatesAvailable("EU", packages[4]); else MarkAsNoUpdatesAvailable("EU");
+            if (packages[5].IsInstalled && packages[5].Updates.Count != 0) MarkAsUpdatesAvailable("NA", packages[5]); else MarkAsNoUpdatesAvailable("NA");
+            if (packages[6].IsInstalled && packages[6].Updates.Count != 0) MarkAsUpdatesAvailable("OC", packages[6]); else MarkAsNoUpdatesAvailable("OC");
+            if (packages[7].IsInstalled && packages[7].Updates.Count != 0) MarkAsUpdatesAvailable("SA", packages[7]); else MarkAsNoUpdatesAvailable("SA");
 
             //Set toggle buttons
             if (manual) tglManual.IsChecked = true;
@@ -676,7 +590,7 @@ namespace Matrix.Wpf
 
         #endregion
 
-        #region Installation Path
+        #region Install Path
 
         private async Task ChangeInstallPath()
         {
@@ -705,9 +619,9 @@ namespace Matrix.Wpf
 
         #endregion
 
-        #region Button Clicks
+        #region Package Installation and Update
 
-        private async Task ClickInstallButton(Package p, Button b)
+        private async Task InstallPackage(Package p, string tag)
         {
             if (p.IsInstalled == false) //Package is not yet installed
             {
@@ -789,7 +703,7 @@ namespace Matrix.Wpf
                     //Change user setting and button
                     p.IsInstalled = true;
                     p.InstalledVersion = p.CurrentVersion;
-                    MarkAsInstalled(b);
+                    MarkAsInstalled(tag);
 
                     //Add package to cmbRegionPicker
                     cmbRegionPicker.SelectedItem = null;
@@ -825,7 +739,7 @@ namespace Matrix.Wpf
 
                 //Change user setting and button
                 p.IsInstalled = false;
-                MarkAsUninstalled(b);
+                MarkAsUninstalled(tag);
 
                 //Remove package from cmbRegionPicker
                 if (cmbRegionPicker.Items.Contains(p)) cmbRegionPicker.Items.Remove(p);
@@ -835,7 +749,7 @@ namespace Matrix.Wpf
             }
         }
 
-        private async Task ClickUpdateButton(Package p, Button u, Badged b)
+        private async Task UpdatePackage(Package p, string tag)
         {
             foreach (string update in p.Updates)
             {
@@ -945,9 +859,7 @@ namespace Matrix.Wpf
                 if (totalRegionUpdates == 0) lbiRegions.Background = (SolidColorBrush)new BrushConverter().ConvertFrom("#FF252525");
             }
 
-            MarkAsNoUpdatesAvailable(u, b);
-
-
+            MarkAsNoUpdatesAvailable(tag);
 
             //Show success message
             await this.ShowMessageAsync("Success!", $"{p.Name} is updated.");
@@ -976,6 +888,6 @@ namespace Matrix.Wpf
         #endregion
 
         #endregion
-        
+
     }
 }
