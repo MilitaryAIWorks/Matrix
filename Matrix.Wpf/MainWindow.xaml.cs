@@ -50,8 +50,6 @@ namespace Matrix.Wpf
         Dictionary<string, bool> settings = new Dictionary<string, bool>();
         Dictionary<string, string> versions = new Dictionary<string, string>();
         List<Package> packages;
-        MessageDialogResult messageResult;
-        MessageDialogResult licenseResult;
         string sceneryPath;
         string[] airfields;
         Logger logger = LogManager.GetCurrentClassLogger();
@@ -117,8 +115,7 @@ namespace Matrix.Wpf
                 if (packages[0].IsInstalled) await InstallPackage(packages[packageNumber], tag);
                 else
                 {
-                    await ShowMessageMissingLibs();
-
+                    var messageResult = await this.ShowMessageAsync("Global Libraries", "The MAIW Global Libraries are required for this region. They will be installed first.", MessageDialogStyle.AffirmativeAndNegative);
                     if (messageResult == MessageDialogResult.Affirmative)
                     {
                         await InstallPackage(packages[0], "GL");
@@ -540,20 +537,6 @@ namespace Matrix.Wpf
 
         #endregion
 
-        #region Messages
-
-        private async Task ShowMessageMissingLibs()
-        {
-            messageResult = await this.ShowMessageAsync("Global Libraries", "The MAIW Global Libraries are required for this region. They will be installed first.", MessageDialogStyle.AffirmativeAndNegative);
-        }
-
-        private async Task ShowMessageLicense(string packageName)
-        {
-            licenseResult = await this.ShowMessageAsync("License", $"Installing the {packageName} package implies that you accept the MAIW license, available at https://militaryaiworks.com/license.", MessageDialogStyle.AffirmativeAndNegative);
-        }
-
-        #endregion
-
         #region Install Path
 
         private async Task ChangeInstallPath()
@@ -594,7 +577,7 @@ namespace Matrix.Wpf
                 if (string.IsNullOrEmpty(installPath)) return;
 
                 //Show async license message
-                await ShowMessageLicense(p.Name);
+                var licenseResult = await this.ShowMessageAsync("License", $"Installing the {p.Name} package implies that you accept the MAIW license, available at https://militaryaiworks.com/license.", MessageDialogStyle.AffirmativeAndNegative);
                 if (licenseResult == MessageDialogResult.Affirmative)
                 {
                     //Show async progress message
