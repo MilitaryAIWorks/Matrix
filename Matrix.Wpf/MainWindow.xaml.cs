@@ -33,7 +33,7 @@ namespace Matrix.Wpf
             GetLatestNews();
             GetCredits();
             GetUserSettings();
-            packages = PackageService.Create(settings, versions, fileServerPath);
+            packages = PackageService.CreateList(settings, versions, fileServerPath);
             AutoUpdater.Start($"{fileServerPath}/app/latestVersion.xml");
         }
 
@@ -76,7 +76,7 @@ namespace Matrix.Wpf
             {
                 //Check if any regions are installed before uninstalling the global package
                 bool regionsInstalled = false;
-                for (int i = 2; i < packages.Count; i++)
+                for (int i = 1; i < packages.Count; i++)
                 {
                     if (packages[i].IsInstalled) regionsInstalled = true;
                 }
@@ -93,22 +93,22 @@ namespace Matrix.Wpf
                 switch (tag)
                 {
                     case "AF":
-                        packageNumber = 2;
+                        packageNumber = 1;
                         break;
                     case "AS":
-                        packageNumber = 3;
+                        packageNumber = 2;
                         break;
                     case "EU":
-                        packageNumber = 4;
+                        packageNumber = 3;
                         break;
                     case "NA":
-                        packageNumber = 5;
+                        packageNumber = 4;
                         break;
                     case "OC":
-                        packageNumber = 6;
+                        packageNumber = 5;
                         break;
                     case "SA":
-                        packageNumber = 7;
+                        packageNumber = 6;
                         break;
                     default:
                         break;
@@ -139,22 +139,22 @@ namespace Matrix.Wpf
             switch (tag)
             {
                 case "AF":
-                    packageNumber = 2;
+                    packageNumber = 1;
                     break;
                 case "AS":
-                    packageNumber = 3;
+                    packageNumber = 2;
                     break;
                 case "EU":
-                    packageNumber = 4;
+                    packageNumber = 3;
                     break;
                 case "NA":
-                    packageNumber = 5;
+                    packageNumber = 4;
                     break;
                 case "OC":
-                    packageNumber = 6;
+                    packageNumber = 5;
                     break;
                 case "SA":
-                    packageNumber = 7;
+                    packageNumber = 6;
                     break;
                 default:
                     break;
@@ -207,12 +207,11 @@ namespace Matrix.Wpf
 
         private async void btnDownloadGlobalVoicepack_Click(object sender, RoutedEventArgs e)
         {
-
-            string fileName = $"{packages[1].FileName}.zip";
+            string fileName = "maiw-vp.zip";
 
             SaveFileDialog dlg = new SaveFileDialog
             {
-                Title = "Save the Global MAIW Voicepack",
+                Title = "Save the MAIW Global Voicepack",
                 FileName = fileName,
                 Filter = "Zip file (*.zip)|*.zip"
             };
@@ -233,7 +232,7 @@ namespace Matrix.Wpf
                     {
                         logger.Error(we, "Download Error");
                         await progress.CloseAsync();
-                        await this.ShowMessageAsync("Error", $"The Global MAIW Voicepack can not be downloaded.\nPlease check your internet connection and try again.");
+                        await this.ShowMessageAsync("Error", $"The MAIW Global Voicepack can not be downloaded.\nPlease check your internet connection and try again.");
                         return;
                     }
                     catch (Exception ex)
@@ -246,29 +245,29 @@ namespace Matrix.Wpf
                         {
                             logger.Error(ex, "Install Error");
                             await progress.CloseAsync();
-                            await this.ShowMessageAsync("Error", "Something went wrong while installing the Global MAIW Voicepack.\nPlease try again or contact us on our forums.");
+                            await this.ShowMessageAsync("Error", "Something went wrong while installing the MAIW Global Voicepack.\nPlease try again or contact us on our forums.");
                         }
                         return;
                     }
                 }
 
                 await progress.CloseAsync();
-                await this.ShowMessageAsync("Success!", "The Global MAIW Voicepack was downloaded succesfully.\nYou will need to unzip the files and import them into EVP manually.");
+                await this.ShowMessageAsync("Success!", "The MAIW Global Voicepack was downloaded succesfully.\nYou will need to unzip the files and import them into EVP manually.");
             }
         }
 
         private async void btnChangeInstallPath_Click(object sender, RoutedEventArgs e)
         {
             //Check if any regions are installed
-            bool regionsInstalled = false;
-            for (int i = 2; i < packages.Count; i++)
+            bool packagesInstalled = false;
+            for (int i = 0; i < packages.Count; i++)
             {
-                if (packages[i].IsInstalled) regionsInstalled = true;
+                if (packages[i].IsInstalled) packagesInstalled = true;
             }
 
-            if (regionsInstalled || packages[0].IsInstalled)
+            if (packagesInstalled)
             {
-                await this.ShowMessageAsync("Error", "The installation path is locked.\nPlease uninstall all regions and global libraries first.");
+                await this.ShowMessageAsync("Error", "The installation path is locked.\nPlease uninstall all regions and/or global libraries first.");
                 return;
             }
             else await ChangeInstallPath();
@@ -448,20 +447,20 @@ namespace Matrix.Wpf
         private void SaveUserSettings()
         {
             Properties.Settings.Default.IsInstalledGlobalLibraries = packages[0].IsInstalled;
-            Properties.Settings.Default.IsInstalledRegionAfrica = packages[2].IsInstalled;
-            Properties.Settings.Default.IsInstalledRegionAsia = packages[3].IsInstalled;
-            Properties.Settings.Default.IsInstalledRegionEurope = packages[4].IsInstalled;
-            Properties.Settings.Default.IsInstalledRegionNA = packages[5].IsInstalled;
-            Properties.Settings.Default.IsInstalledRegionOceania = packages[6].IsInstalled;
-            Properties.Settings.Default.IsInstalledRegionSA = packages[7].IsInstalled;
+            Properties.Settings.Default.IsInstalledRegionAfrica = packages[1].IsInstalled;
+            Properties.Settings.Default.IsInstalledRegionAsia = packages[2].IsInstalled;
+            Properties.Settings.Default.IsInstalledRegionEurope = packages[3].IsInstalled;
+            Properties.Settings.Default.IsInstalledRegionNA = packages[4].IsInstalled;
+            Properties.Settings.Default.IsInstalledRegionOceania = packages[5].IsInstalled;
+            Properties.Settings.Default.IsInstalledRegionSA = packages[6].IsInstalled;
 
             Properties.Settings.Default.versionGlobalLibraries = packages[0].InstalledVersion;
-            Properties.Settings.Default.versionRegionAfrica = packages[2].InstalledVersion;
-            Properties.Settings.Default.versionRegionAsia = packages[3].InstalledVersion;
-            Properties.Settings.Default.versionRegionEurope = packages[4].InstalledVersion;
-            Properties.Settings.Default.versionRegionNA = packages[5].InstalledVersion;
-            Properties.Settings.Default.versionRegionOceania = packages[6].InstalledVersion;
-            Properties.Settings.Default.versionRegionSA = packages[7].InstalledVersion;
+            Properties.Settings.Default.versionRegionAfrica = packages[1].InstalledVersion;
+            Properties.Settings.Default.versionRegionAsia = packages[2].InstalledVersion;
+            Properties.Settings.Default.versionRegionEurope = packages[3].InstalledVersion;
+            Properties.Settings.Default.versionRegionNA = packages[4].InstalledVersion;
+            Properties.Settings.Default.versionRegionOceania = packages[5].InstalledVersion;
+            Properties.Settings.Default.versionRegionSA = packages[6].InstalledVersion;
 
             Properties.Settings.Default.InstallPath = installPath;
             Properties.Settings.Default.ManualInstallation = manual;
@@ -487,12 +486,12 @@ namespace Matrix.Wpf
             i.ClearValue(BorderBrushProperty);
         }
 
-        private void MarkAsUpdatesAvailable(string tag, Package p)
+        private void MarkAsUpdatesAvailable(Package p)
         {
-            var u = (Button)this.FindName($"btnUpdate{tag}");
+            var u = (Button)this.FindName($"btnUpdate{p.Tag}");
             u.IsEnabled = true;
 
-            var b = (Badged)this.FindName($"bdg{tag}");
+            var b = (Badged)this.FindName($"bdg{p.Tag}");
             b.Badge = p.Updates.Count;
 
             if (p == packages[0])
@@ -518,54 +517,19 @@ namespace Matrix.Wpf
 
         private void SetInitialStates()
         {
-            //Set install buttons and add regions to cmbRegionPicker
-
-            if (packages[0].IsInstalled) MarkAsInstalled("GL");
-
-            if (packages[2].IsInstalled)
+            foreach (Package p in packages)
             {
-                MarkAsInstalled("AF");
-                cmbRegionPicker.Items.Add(packages[2]);
+                if (p.IsInstalled)
+                {
+                    MarkAsInstalled(p.Tag);
+                    if (p.Updates.Count != 0) MarkAsUpdatesAvailable(p); else MarkAsNoUpdatesAvailable(p.Tag);
+                    if (p != packages[0]) cmbRegionPicker.Items.Add(p);
+                }
+                else
+                {
+                    MarkAsNoUpdatesAvailable(p.Tag);
+                }
             }
-
-            if (packages[3].IsInstalled)
-            {
-                MarkAsInstalled("AS");
-                cmbRegionPicker.Items.Add(packages[3]);
-            }
-
-            if (packages[4].IsInstalled)
-            {
-                MarkAsInstalled("EU");
-                cmbRegionPicker.Items.Add(packages[4]);
-            }
-
-            if (packages[5].IsInstalled)
-            {
-                MarkAsInstalled("NA");
-                cmbRegionPicker.Items.Add(packages[5]);
-            }
-
-            if (packages[6].IsInstalled)
-            {
-                MarkAsInstalled("OC");
-                cmbRegionPicker.Items.Add(packages[6]);
-            }
-
-            if (packages[7].IsInstalled)
-            {
-                MarkAsInstalled("SA");
-                cmbRegionPicker.Items.Add(packages[7]);
-            }
-
-            //Set update buttons
-            if (packages[0].IsInstalled && packages[0].Updates.Count != 0) MarkAsUpdatesAvailable("GL", packages[0]); else MarkAsNoUpdatesAvailable("GL");
-            if (packages[2].IsInstalled && packages[2].Updates.Count != 0) MarkAsUpdatesAvailable("AF", packages[2]); else MarkAsNoUpdatesAvailable("AF");
-            if (packages[3].IsInstalled && packages[3].Updates.Count != 0) MarkAsUpdatesAvailable("AS", packages[3]); else MarkAsNoUpdatesAvailable("AS");
-            if (packages[4].IsInstalled && packages[4].Updates.Count != 0) MarkAsUpdatesAvailable("EU", packages[4]); else MarkAsNoUpdatesAvailable("EU");
-            if (packages[5].IsInstalled && packages[5].Updates.Count != 0) MarkAsUpdatesAvailable("NA", packages[5]); else MarkAsNoUpdatesAvailable("NA");
-            if (packages[6].IsInstalled && packages[6].Updates.Count != 0) MarkAsUpdatesAvailable("OC", packages[6]); else MarkAsNoUpdatesAvailable("OC");
-            if (packages[7].IsInstalled && packages[7].Updates.Count != 0) MarkAsUpdatesAvailable("SA", packages[7]); else MarkAsNoUpdatesAvailable("SA");
 
             //Set toggle buttons
             if (manual) tglManual.IsChecked = true;
@@ -642,7 +606,7 @@ namespace Matrix.Wpf
                         try
                         {
                             //Generate fileName
-                            string fileName = $"{ p.FileName}_install_{p.CurrentVersion}.7z";
+                            string fileName = $"maiw_{p.Tag.ToLower()}_f_{p.CurrentVersion}.7z";
                             string filePath = Path.Combine(tempPath, fileName);
 
                             //Download Package
@@ -759,12 +723,12 @@ namespace Matrix.Wpf
 
                 if (!progress.IsCanceled)
                 {
-                    string fileName = $"{p.FileName}_update_{update}.7z";
+                    string fileName = $"maiw_{p.Tag.ToLower()}_u_{update}.7z";
 
                     try
                     {
                         //Download File Removal List
-                        WebRequest request = WebRequest.Create($"{fileServerPath}/packages/txt/{p.FileName}_update_{update}.txt");
+                        WebRequest request = WebRequest.Create($"{fileServerPath}/packages/txt/maiw_{p.Tag.ToLower()}_u_{update}.txt");
                         WebResponse response = await request.GetResponseAsync();
                         List<string> files = new List<string>();
 

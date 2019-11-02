@@ -5,28 +5,21 @@ namespace Matrix.Lib.Models
     public class Package
     {
         public string Name { get; }
-        public string FileName { get; }
+        public string Tag { get; }
         public string FolderName { get; set; }
         public bool IsInstalled { get; set; }
         public string InstalledVersion { get; set; }    
         public string CurrentVersion { get; set; }
         public List<string> Updates { get; set; }
 
-        public Package(string name, string fileName, string folderName, bool isInstalled, string version)
+        public Package(string name, string tag, string folderName, bool isInstalled, string version)
         {
             Name = name;
-            FileName = fileName;
+            Tag = tag;
             FolderName = folderName;
             IsInstalled = isInstalled;
             InstalledVersion = version;
             Updates = new List<string>();
         }
-
-        public Package(string name, string fileName)
-        {
-            Name = name;
-            FileName = fileName;
-        }
-
     }
 }

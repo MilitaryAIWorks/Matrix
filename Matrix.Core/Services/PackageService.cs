@@ -8,19 +8,18 @@ namespace Matrix.Lib.Services
 {
     public static class PackageService
     {
-        public static List<Package> Create(Dictionary<string, bool> settings, Dictionary<string, string> versions, string serverPath)
+        public static List<Package> CreateList(Dictionary<string, bool> settings, Dictionary<string, string> versions, string serverPath)
         {
             //Create packages list
             List<Package> packages = new List<Package>
             {
-                new Package("MAIW Global Libraries", "maiwGlobalLibraries", "MAIW_GLOBAL", settings["isInstalledGlobalLibraries"], versions["versionGlobalLibraries"]),
-                new Package("MAIW Global Voicepack", "maiwGlobalVoicepack"),
-                new Package("MAIW Region Africa", "maiwRegionAfrica", "MAIW_AFRICA", settings["isInstalledRegionAfrica"], versions["versionRegionAfrica"]),
-                new Package("MAIW Region Asia", "maiwRegionAsia", "MAIW_ASIA", settings["isInstalledRegionAsia"], versions["versionRegionAsia"]),
-                new Package("MAIW Region Europe", "maiwRegionEurope", "MAIW_EUROPE", settings["isInstalledRegionEurope"], versions["versionRegionEurope"]),
-                new Package("MAIW Region North America", "maiwRegionNA", "MAIW_NA", settings["isInstalledRegionNA"], versions["versionRegionNA"]),
-                new Package("MAIW Region Oceania", "maiwRegionOceania", "MAIW_OCEANIA", settings["isInstalledRegionOceania"], versions["versionRegionOceania"]),
-                new Package("MAIW Region South America", "maiwRegionSA", "MAIW_SA", settings["isInstalledRegionSA"], versions["versionRegionSA"])
+                new Package("MAIW Global Libraries", "GL", "MAIW_GLOBAL", settings["isInstalledGlobalLibraries"], versions["versionGlobalLibraries"]),
+                new Package("MAIW Region Africa", "AF", "MAIW_AFRICA", settings["isInstalledRegionAfrica"], versions["versionRegionAfrica"]),
+                new Package("MAIW Region Asia", "AS", "MAIW_ASIA", settings["isInstalledRegionAsia"], versions["versionRegionAsia"]),
+                new Package("MAIW Region Europe", "EU", "MAIW_EUROPE", settings["isInstalledRegionEurope"], versions["versionRegionEurope"]),
+                new Package("MAIW Region North America", "NA", "MAIW_NA", settings["isInstalledRegionNA"], versions["versionRegionNA"]),
+                new Package("MAIW Region Oceania", "OC", "MAIW_OCEANIA", settings["isInstalledRegionOceania"], versions["versionRegionOceania"]),
+                new Package("MAIW Region South America", "SA", "MAIW_SA", settings["isInstalledRegionSA"], versions["versionRegionSA"])
             };
 
             //Check each package for updates
@@ -48,7 +47,7 @@ namespace Matrix.Lib.Services
 
             try
             {
-                xmlDoc.Load(url + "/packages/versions.xml");
+                xmlDoc.Load(url + "/packages/versions3.xml");
                 XmlNodeList packageNodes = xmlDoc.SelectNodes("//Packages/Package");
 
                 foreach (XmlNode packageNode in packageNodes)
