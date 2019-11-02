@@ -204,7 +204,7 @@ namespace Matrix.Wpf
 
         private async void btnDownloadGlobalVoicepack_Click(object sender, RoutedEventArgs e)
         {
-            string fileName = "maiw-vp.zip";
+            string fileName = "maiw_vp.zip";
 
             SaveFileDialog dlg = new SaveFileDialog
             {
