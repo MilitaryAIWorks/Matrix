@@ -28,7 +28,7 @@ namespace Matrix.Lib.Services
                 {
                     extractor.Extracting += (s, e) =>
                     {
-                        progress.SetProgress(e.PercentDone/100);
+                        progress.SetProgress((double)e.PercentDone/100);
                         progress.SetMessage(e.PercentDone + "% unpacked");
                     };
                     extractor.ExtractArchive(destination);
