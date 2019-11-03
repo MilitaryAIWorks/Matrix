@@ -36,7 +36,7 @@
             <ListBoxItem Content="SETTINGS" Padding="0,10" Background="#FF252525"/>
         </ListBox>
         <Button x:Name="btnDonate" Content="Donate" HorizontalAlignment="Left" Margin="30,499,0,0" VerticalAlignment="Top" Width="128" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="btnDonate_Click"/>
-        <Label Content="Version 1.6.0" Margin="15,0,0,40" FontSize="11" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="160" HorizontalContentAlignment="Center"/>
+        <Label Content="Version 1.7.0" Margin="15,0,0,40" FontSize="11" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="160" HorizontalContentAlignment="Center"/>
         <Label Content="© 2018-2019 Military AI Works" Margin="15,0,0,15" FontSize="11" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="160" HorizontalContentAlignment="Center"/>
 
 
@@ -60,16 +60,16 @@
                     <GroupBox Header="Global Libraries" HorizontalAlignment="Left" Height="200" Margin="10,140,0,0" VerticalAlignment="Top" Width="240">
                         <Grid>
                             <Image HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Margin="65,10" Source="Images/global.png"/>
-                            <Button x:Name="btnInstallGlobalLibraries" Content="Install" HorizontalAlignment="Left" Margin="10,125,0,0" VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="btnInstallGlobalLibraries_Click"/>
-                            <Controls:Badged x:Name="bdgGlobalLibraries" Badge="0" Margin="118,125,10,0" BadgeBackground="#FFC80000">
-                                <Button x:Name="btnUpdateGlobalLibraries" Content="Update" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="btnUpdateGlobalLibraries_Click" IsEnabled="False"/>
+                            <Button x:Name="btnInstallGL" Content="Install" HorizontalAlignment="Left" Margin="10,125,0,0" VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="InstallButton_Click" Tag="GL" />
+                            <Controls:Badged x:Name="bdgGL" Badge="0" Margin="118,125,10,0" BadgeBackground="#FFC80000">
+                                <Button x:Name="btnUpdateGL" Content="Update" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="UpdateButton_Click" Tag="GL" IsEnabled="False"/>
                             </Controls:Badged>
                         </Grid>
                     </GroupBox>
                     <GroupBox Header="Global Voicepack" HorizontalAlignment="Left" Height="200" Margin="266,140,0,0" VerticalAlignment="Top" Width="240">
                         <Grid>
                             <Image HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Margin="65,10" Source="Images/voicepack.png"/>
-                            <Button x:Name="btnDownloadGlobalVoicepack" Content="Download" HorizontalAlignment="Left" Margin="70,125,0,0" VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="btnDownloadGlobalVoicepack_Click"/>
+                            <Button x:Name="btnDownloadVP" Content="Download" HorizontalAlignment="Left" Margin="70,125,0,0" VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="btnDownloadGlobalVoicepack_Click" Tag="VP"/>
                         </Grid>
                     </GroupBox>
                 </Grid>
@@ -81,63 +81,63 @@
                     <GroupBox Header="Africa" HorizontalAlignment="Left" Height="200" Margin="10,140,0,0" VerticalAlignment="Top" Width="240">
                         <Grid>
                             <Image x:Name="imgRegionAfrica" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Margin="65,10" Source="Images/africa.png" />
-                            <Button x:Name="btnInstallRegionAfrica" Content="Install" HorizontalAlignment="Left" Margin="10,125,0,0" VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="btnInstallRegionAfrica_Click"/>
-                            <Controls:Badged x:Name="bdgRegionAfrica" Badge="0" Margin="118,125,10,0" BadgeBackground="#FFC80000">
-                                <Button x:Name="btnUpdateRegionAfrica" Content="Update" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="btnUpdateRegionAfrica_Click" IsEnabled="False"/>
+                            <Button x:Name="btnInstallAF" Content="Install" HorizontalAlignment="Left" Margin="10,125,0,0" VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="InstallButton_Click" Tag="AF"/>
+                            <Controls:Badged x:Name="bdgAF" Badge="0" Margin="118,125,10,0" BadgeBackground="#FFC80000">
+                                <Button x:Name="btnUpdateAF" Content="Update" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="UpdateButton_Click" Tag="AF" IsEnabled="False"/>
                             </Controls:Badged>
                         </Grid>
                     </GroupBox>
                     <GroupBox Header="Asia" HorizontalAlignment="Left" Height="200" Margin="265,140,0,0" VerticalAlignment="Top" Width="240">
                         <Grid>
                             <Image x:Name="imgRegionAsia" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Margin="65,10" Source="Images/asia.png" />
-                            <Button x:Name="btnInstallRegionAsia" Content="Install" HorizontalAlignment="Left" Margin="10,125,0,0" VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="btnInstallRegionAsia_Click"/>
-                            <Controls:Badged x:Name="bdgRegionAsia" Badge="0" Margin="118,125,10,0" BadgeBackground="#FFC80000">
-                                <Button x:Name="btnUpdateRegionAsia" Content="Update" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="btnUpdateRegionAsia_Click" IsEnabled="False"/>
+                            <Button x:Name="btnInstallAS" Content="Install" HorizontalAlignment="Left" Margin="10,125,0,0" VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="InstallButton_Click" Tag="AS"/>
+                            <Controls:Badged x:Name="bdgAS" Badge="0" Margin="118,125,10,0" BadgeBackground="#FFC80000">
+                                <Button x:Name="btnUpdateAS" Content="Update" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="UpdateButton_Click" Tag="AS" IsEnabled="False"/>
                             </Controls:Badged>
                         </Grid>
                     </GroupBox>
                     <GroupBox Header="Europe" HorizontalAlignment="Left" Height="200" Margin="520,140,0,0" VerticalAlignment="Top" Width="240">
                         <Grid>
                             <Image x:Name="imgRegionEurope" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Margin="65,10" Source="Images/europe.png" />
-                            <Button x:Name="btnInstallRegionEurope" Content="Install" HorizontalAlignment="Left" Margin="10,125,0,0" VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="btnInstallRegionEurope_Click"/>
-                            <Controls:Badged x:Name="bdgRegionEurope" Badge="0" Margin="118,125,10,0" BadgeBackground="#FFC80000">
-                                <Button x:Name="btnUpdateRegionEurope" Content="Update" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="btnUpdateRegionEurope_Click" IsEnabled="False"/>
+                            <Button x:Name="btnInstallEU" Content="Install" HorizontalAlignment="Left" Margin="10,125,0,0" VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="InstallButton_Click" Tag="EU"/>
+                            <Controls:Badged x:Name="bdgEU" Badge="0" Margin="118,125,10,0" BadgeBackground="#FFC80000">
+                                <Button x:Name="btnUpdateEU" Content="Update" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="UpdateButton_Click" Tag="EU" IsEnabled="False"/>
                             </Controls:Badged>
                         </Grid>
                     </GroupBox>
                     <GroupBox Header="North America" HorizontalAlignment="Left" Height="200" Margin="10,361,0,0" VerticalAlignment="Top" Width="240">
                         <Grid>
                             <Image x:Name="imgRegionNA" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Margin="65,10" Source="Images/northamerica.png" />
-                            <Button x:Name="btnInstallRegionNA" Content="Install" HorizontalAlignment="Left" Margin="10,125,0,0" VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="btnInstallRegionNA_Click"/>
-                            <Controls:Badged x:Name="bdgRegionNA" Badge="0" Margin="118,125,10,0" BadgeBackground="#FFC80000">
-                                <Button x:Name="btnUpdateRegionNA" Content="Update" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="btnUpdateRegionNA_Click" IsEnabled="False"/>
+                            <Button x:Name="btnInstallNA" Content="Install" HorizontalAlignment="Left" Margin="10,125,0,0" VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="InstallButton_Click" Tag="NA"/>
+                            <Controls:Badged x:Name="bdgNA" Badge="0" Margin="118,125,10,0" BadgeBackground="#FFC80000">
+                                <Button x:Name="btnUpdateNA" Content="Update" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="UpdateButton_Click" Tag="NA" IsEnabled="False"/>
                             </Controls:Badged>
                         </Grid>
                     </GroupBox>
                     <GroupBox Header="Oceania" HorizontalAlignment="Left" Height="200" Margin="265,361,0,0" VerticalAlignment="Top" Width="240">
                         <Grid>
                             <Image x:Name="imgRegionOceania" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Margin="65,10" Source="Images/oceania.png" />
-                            <Button x:Name="btnInstallRegionOceania" Content="Install" HorizontalAlignment="Left" Margin="10,125,0,0" VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="btnInstallRegionOceania_Click"/>
-                            <Controls:Badged x:Name="bdgRegionOceania" Badge="0" Margin="118,125,10,0" BadgeBackground="#FFC80000">
-                                <Button x:Name="btnUpdateRegionOceania" Content="Update" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="btnUpdateRegionOceania_Click" IsEnabled="False"/>
+                            <Button x:Name="btnInstallOC" Content="Install" HorizontalAlignment="Left" Margin="10,125,0,0" VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="InstallButton_Click" Tag="OC"/>
+                            <Controls:Badged x:Name="bdgOC" Badge="0" Margin="118,125,10,0" BadgeBackground="#FFC80000">
+                                <Button x:Name="btnUpdateOC" Content="Update" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="UpdateButton_Click" Tag="OC" IsEnabled="False"/>
                             </Controls:Badged>
                         </Grid>
                     </GroupBox>
                     <GroupBox Header="South America" HorizontalAlignment="Left" Height="200" Margin="520,361,0,0" VerticalAlignment="Top" Width="240">
                         <Grid>
                             <Image x:Name="imgRegionSA" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="100" Margin="65,10" Source="Images/southamerica.png" />
-                            <Button x:Name="btnInstallRegionSA" Content="Install" HorizontalAlignment="Left" Margin="10,125,0,0" VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="btnInstallRegionSA_Click"/>
-                            <Controls:Badged x:Name="bdgRegionSA" Badge="0" Margin="118,125,10,0" BadgeBackground="#FFC80000">
-                                <Button x:Name="btnUpdateRegionSA" Content="Update" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="btnUpdateRegionSA_Click" IsEnabled="False"/>
+                            <Button x:Name="btnInstallSA" Content="Install" HorizontalAlignment="Left" Margin="10,125,0,0" VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="InstallButton_Click" Tag="SA"/>
+                            <Controls:Badged x:Name="bdgSA" Badge="0" Margin="118,125,10,0" BadgeBackground="#FFC80000">
+                                <Button x:Name="btnUpdateSA" Content="Update" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="30" Style="{DynamicResource SquareButtonStyle}" Controls:ControlsHelper.ContentCharacterCasing="Upper" Click="UpdateButton_Click" Tag="SA" IsEnabled="False"/>
                             </Controls:Badged>
                         </Grid>
                     </GroupBox>
-                    <iconPacks:PackIconModern x:Name="iconReadmeRegionAfrica" Kind="InformationCircle" VerticalAlignment="Top" HorizontalAlignment="Right" RenderTransformOrigin="-32.937,9.531" Margin="0,146,542,0" Cursor="Hand" MouseUp="iconReadmeRegionAfrica_MouseUp" />
-                    <iconPacks:PackIconModern x:Name="iconReadmeRegionAsia" Kind="InformationCircle" VerticalAlignment="Top" HorizontalAlignment="Right" RenderTransformOrigin="-32.937,9.531" Margin="0,146,287,0" Cursor="Hand" MouseUp="iconReadmeRegionAsia_MouseUp" />
-                    <iconPacks:PackIconModern x:Name="iconReadmeRegionEurope" Kind="InformationCircle" VerticalAlignment="Top" HorizontalAlignment="Right" RenderTransformOrigin="-32.937,9.531" Margin="0,146,32,0" Cursor="Hand" MouseUp="iconReadmeRegionEurope_MouseUp" />
-                    <iconPacks:PackIconModern x:Name="iconReadmeRegionNA" Kind="InformationCircle" VerticalAlignment="Top" HorizontalAlignment="Right" RenderTransformOrigin="-32.937,9.531" Margin="0,367,542,0" Cursor="Hand" MouseUp="iconReadmeRegionNA_MouseUp" />
-                    <iconPacks:PackIconModern x:Name="iconReadmeRegionOceania" Kind="InformationCircle" VerticalAlignment="Top" HorizontalAlignment="Right" RenderTransformOrigin="-32.937,9.531" Margin="0,367,287,0" Cursor="Hand" MouseUp="iconReadmeRegionOceania_MouseUp" />
-                    <iconPacks:PackIconModern x:Name="iconReadmeRegionSA" Kind="InformationCircle" VerticalAlignment="Top" HorizontalAlignment="Right" RenderTransformOrigin="-32.937,9.531" Margin="0,367,32,0" Cursor="Hand" MouseUp="iconReadmeRegionSA_MouseUp" />
+                    <iconPacks:PackIconModern x:Name="iconReadmeAF" Kind="InformationCircle" VerticalAlignment="Top" HorizontalAlignment="Right" RenderTransformOrigin="-32.937,9.531" Margin="0,146,542,0" Cursor="Hand" MouseUp="IconReadme_MouseUp" Tag="AF" />
+                    <iconPacks:PackIconModern x:Name="iconReadmeAS" Kind="InformationCircle" VerticalAlignment="Top" HorizontalAlignment="Right" RenderTransformOrigin="-32.937,9.531" Margin="0,146,287,0" Cursor="Hand" MouseUp="IconReadme_MouseUp" Tag="AS" />
+                    <iconPacks:PackIconModern x:Name="iconReadmeEU" Kind="InformationCircle" VerticalAlignment="Top" HorizontalAlignment="Right" RenderTransformOrigin="-32.937,9.531" Margin="0,146,32,0" Cursor="Hand" MouseUp="IconReadme_MouseUp" Tag="EU" />
+                    <iconPacks:PackIconModern x:Name="iconReadmeNA" Kind="InformationCircle" VerticalAlignment="Top" HorizontalAlignment="Right" RenderTransformOrigin="-32.937,9.531" Margin="0,367,542,0" Cursor="Hand" MouseUp="IconReadme_MouseUp" Tag="NA" />
+                    <iconPacks:PackIconModern x:Name="iconReadmeOC" Kind="InformationCircle" VerticalAlignment="Top" HorizontalAlignment="Right" RenderTransformOrigin="-32.937,9.531" Margin="0,367,287,0" Cursor="Hand" MouseUp="IconReadme_MouseUp" Tag="OC" />
+                    <iconPacks:PackIconModern x:Name="iconReadmeSA" Kind="InformationCircle" VerticalAlignment="Top" HorizontalAlignment="Right" RenderTransformOrigin="-32.937,9.531" Margin="0,367,32,0" Cursor="Hand" MouseUp="IconReadme_MouseUp" Tag="SA" />
                 </Grid>
             </TabItem>
             <TabItem x:Name="tabCredits">
