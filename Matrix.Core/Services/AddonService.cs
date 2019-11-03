@@ -1,12 +1,13 @@
 ﻿using System;
 using System.IO;
 using System.Xml;
+using Matrix.Lib.Models;
 
-namespace Matrix.Lib
+namespace Matrix.Lib.Services
 {
-    public class AddonService
+    public static class AddonService
     {
-        public void CreateAddon(Package p, string installPath, bool manual)
+        public static void CreateAddon(Package p, string installPath, bool manual)
         {
             string addonFolder = GetAddonFolder(p);
 
@@ -21,7 +22,7 @@ namespace Matrix.Lib
             }
         }
 
-        public string GetAddonFolder(Package p)
+        public static string GetAddonFolder(Package p)
         {
             string myDocs = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             string addonFolder = myDocs + "\\Prepar3D v4 Add-ons\\" + p.Name;
@@ -30,14 +31,14 @@ namespace Matrix.Lib
 
         //Write Xml
 
-        private readonly XmlWriterSettings settings = new XmlWriterSettings
+        private static XmlWriterSettings settings = new XmlWriterSettings
         {
             Indent = true,
             OmitXmlDeclaration = true, //Omits the XML declaration since it's not needed in add-on.xml files
             ConformanceLevel = ConformanceLevel.Fragment //Required to make the OmitXmlDeclaration work
         };
 
-        private void WriteAddonXml(Package p, string addonFolder, string installPath)
+        private static void WriteAddonXml(Package p, string addonFolder, string installPath)
         {
             string addonPath = $"{addonFolder}\\add-on.xml";
             string subInstallPath = $"{installPath}{p.FolderName}\\{p.FolderName}_";
