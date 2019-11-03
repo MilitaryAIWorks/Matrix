@@ -604,7 +604,7 @@ namespace Matrix.Wpf
                             progress.SetMessage("0% unpacked");
                             progress.SetIndeterminate();
                             progress.SetCancelable(false);
-                            await ZipService.UnzipFile(Path.Combine(tempPath, fileName), installPath, progress);
+                            await ZipService.UnzipFile(filePath, installPath, progress);
                             progress.SetMessage("Done!");
 
                             //Short pause
@@ -707,6 +707,7 @@ namespace Matrix.Wpf
                 if (!progress.IsCanceled)
                 {
                     string fileName = $"maiw_{p.Tag.ToLower()}_u_{update}.7z";
+                    string filePath = Path.Combine(tempPath, fileName);
 
                     try
                     {
@@ -748,7 +749,7 @@ namespace Matrix.Wpf
                         progress.SetTitle("Downloading update...");
                         progress.SetMessage("");
                         progress.SetIndeterminate();
-                        await DownloadService.DownloadFile(fileServerPath, fileName, tempPath, progress);
+                        await DownloadService.DownloadFile(fileServerPath, fileName, filePath, progress);
                         progress.SetMessage("Done!");
 
                         //Short pause
@@ -759,7 +760,7 @@ namespace Matrix.Wpf
                         progress.SetMessage("0% unpacked");
                         progress.SetIndeterminate();
                         progress.SetCancelable(false);
-                        await ZipService.UnzipFile(Path.Combine(tempPath, fileName), installPath, progress);
+                        await ZipService.UnzipFile(filePath, installPath, progress);
                         progress.SetMessage("Done!");
 
                         //Short pause
