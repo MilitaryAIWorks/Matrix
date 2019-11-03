@@ -727,9 +727,19 @@ namespace Matrix.Wpf
                         //Short pause
                         await Task.Delay(1500);
 
+                        //Download Update
+                        progress.SetTitle("Downloading update...");
+                        progress.SetMessage("");
+                        await DownloadService.DownloadFile(fileServerPath, fileName, filePath, progress);
+                        progress.SetMessage("Done!");
+
+                        //Short pause
+                        await Task.Delay(1500);
+
                         //Remove Files
                         progress.SetTitle("Removing files...");
                         progress.SetMessage("");
+                        progress.SetIndeterminate();
                         if (files.Count > 0)
                         {
                             foreach (string f in files)
@@ -739,18 +749,9 @@ namespace Matrix.Wpf
                                 else if (Directory.Exists(path)) Directory.Delete(path, true);
                             }
                         }
+                        await Task.Delay(1500);
                         progress.SetMessage("Done!");
                         progress.SetProgress(1);
-
-                        //Short pause
-                        await Task.Delay(1500);
-
-                        //Download Update
-                        progress.SetTitle("Downloading update...");
-                        progress.SetMessage("");
-                        progress.SetIndeterminate();
-                        await DownloadService.DownloadFile(fileServerPath, fileName, filePath, progress);
-                        progress.SetMessage("Done!");
 
                         //Short pause
                         await Task.Delay(1500);
