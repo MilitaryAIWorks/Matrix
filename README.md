@@ -1,7 +1,5 @@
 <div align="center">
-  <a href="https://github.com/MahApps/MahApps.Metro">
-    <img alt="Matrix" src="https://maiw.cloud/matrix/matrix_splash.png">
-  </a>
+  <h2><i>!! This project is deprecated. The latest version remains available but no support will be given. !!</i></h2>
   <h1>Military AI Traffic Installer Xtreme</h1>
   <h3>by Military AI Works</h3>
 </div>
